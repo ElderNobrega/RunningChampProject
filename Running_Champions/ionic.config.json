@@ -1,0 +1,7 @@
+{
+  "name": "Running_Champions",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
