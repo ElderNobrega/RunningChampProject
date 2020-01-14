@@ -1,0 +1,8 @@
+{
+  "appId": "capstone.running.champions",
+  "appName": "Running_Champions",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}

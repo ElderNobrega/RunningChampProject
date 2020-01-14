@@ -1,0 +1,12 @@
+.welcome-card img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+.welcome-card {
+  min-height: 200px;
+}
+
+.home-title {
+  margin-left: 52px;
+}
