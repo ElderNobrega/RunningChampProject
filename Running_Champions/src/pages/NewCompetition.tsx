@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem } from '@ionic/react';
 import React from 'react';
 
 const NewCompPage: React.FC = () => {
@@ -17,6 +17,7 @@ const NewCompPage: React.FC = () => {
       </IonHeader>
 
       <IonContent>
+        <IonItem></IonItem>
       </IonContent>
     </IonPage>
   );

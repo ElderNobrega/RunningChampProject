@@ -15,6 +15,8 @@ import {  IonBackButton,
           IonSelectOption,
           IonCard,
           IonCardTitle,
+          IonButton,
+          IonIcon
           } from '@ionic/react';
 import React from 'react';
 
@@ -76,6 +78,11 @@ const CompListPage: React.FC = () => {
         </IonItem>
       </IonCard>
 
+      <section>
+      <IonButton href="/compNew" shape='round'>
+        Create
+      </IonButton>
+      </section>
       </IonContent>
     </IonPage>
   );
