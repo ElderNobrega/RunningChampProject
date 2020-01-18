@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem, IonList, IonLabel, IonInput, IonRadioGroup, IonListHeader, IonRadio } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem, IonList, IonLabel, IonInput, IonRadioGroup, IonListHeader, IonRadio, IonButton, IonTextarea } from '@ionic/react';
 import React from 'react';
 
 const NewCompPage: React.FC = () => {
@@ -42,7 +42,20 @@ const NewCompPage: React.FC = () => {
                 </IonItem>
               </IonRadioGroup>
             </IonItem>
+            <IonItem>
+              <IonLabel>Start Date:</IonLabel>
+              <IonInput type='date' required></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel>End Date:</IonLabel>
+              <IonInput type='date' required></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Description</IonLabel>
+              <IonInput type='text' clearInput></IonInput>
+            </IonItem>
           </IonList>
+          <IonButton type='submit' class='--padding-start' shape='round'>Create Competition</IonButton>
         </form>
       </IonContent>
     </IonPage>
