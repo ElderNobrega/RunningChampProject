@@ -1,4 +1,15 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, 
+        IonButtons,   
+        IonContent, 
+        IonHeader, 
+        IonMenuButton, 
+        IonPage, 
+        IonTitle, 
+        IonToolbar, 
+        IonLabel, 
+        IonItem, 
+        IonInput,
+        IonButton } from '@ionic/react';
 import React from 'react';
 
 const LoginPage: React.FC = () => {
@@ -17,6 +28,25 @@ const LoginPage: React.FC = () => {
       </IonHeader>
 
       <IonContent>
+        <form>
+          <IonItem class='ion-margin-bottom ion-margin-top'>
+            <IonLabel>Email:</IonLabel>
+            <IonInput type='email' required></IonInput>
+          </IonItem>
+          <IonItem class='ion-margin-bottom ion-margin-top' >
+            <IonLabel>Password:</IonLabel>
+            <IonInput type='password' required></IonInput>
+          </IonItem>
+          <IonButton type='submit' class='ion-margin-horizontal ion-margin-top' shape='round'>Login</IonButton>
+        </form>
+      </IonContent>
+      <IonContent>
+        <IonLabel class='ion-margin-horizontal'>Forgot Password?</IonLabel>
+        <IonButton fill='clear'>Click here</IonButton>
+        <div>
+          <IonLabel class='ion-margin-horizontal'>Need an Account?</IonLabel>
+          <IonButton fill='clear'>Register here</IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );
