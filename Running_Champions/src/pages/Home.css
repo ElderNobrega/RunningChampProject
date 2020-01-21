@@ -1,10 +1,11 @@
-.welcome-card img {
-  max-height: 35vh;
-  overflow: hidden;
+
+.home-card {
+  min-height: 200px;
 }
 
-.welcome-card {
-  min-height: 200px;
+ion-fab-button {
+  width: 100px;
+  --border-radius: 30px;
 }
 
 .home-title {
