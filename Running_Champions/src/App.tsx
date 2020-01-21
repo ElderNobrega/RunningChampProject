@@ -50,6 +50,11 @@ import './theme/variables.css';
 
 const appPages: AppPage[] = [
   {
+    title: 'Home',
+    url: '/home',
+    icon: unlock
+  },
+  {
     title: 'Login',
     url: '/login',
     icon: unlock
