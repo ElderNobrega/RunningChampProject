@@ -1,0 +1,36 @@
+#details .item {
+    margin: 20px 0;
+    display: flex;
+}
+
+#details .item-label {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#details .item-data {
+    width: 60%;
+    display: flex;
+    align-items: center
+}
+
+#details .item-data input {
+    width: 70%;
+}
+
+#details .item-data ion-button {
+    width: 30%;
+    padding: 0 5px;
+}
+
+.map-placeholder {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    height: 65%;
+    border: 2px solid black;
+}
