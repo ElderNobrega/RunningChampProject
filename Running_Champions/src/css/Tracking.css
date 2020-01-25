@@ -1,36 +1,29 @@
-#details .item {
+#tracking .item {
     margin: 20px 0;
     display: flex;
 }
 
-#details .item-label {
+#tracking .item-label {
     width: 40%;
     display: flex;
     align-items: center;
     padding: 0 20px;
 }
 
-#details .item-data {
+#tracking .item-data {
     width: 60%;
     display: flex;
     align-items: center
 }
 
-#details .item-data input {
-    width: 70%;
-}
-
-#details .item-data ion-button {
-    width: 30%;
+#tracking .item-data ion-button {
     padding: 0 5px;
 }
 
-#details .map-placeholder {
-    position: fixed;
+#tracking .map-placeholder {
     width: 100%;
-    bottom: 0;
     left: 0;
     margin: 0;
-    height: 65%;
+    height: 75%;
     border: 2px solid black;
 }

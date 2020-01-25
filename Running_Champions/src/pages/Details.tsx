@@ -10,7 +10,7 @@ const DetailsPage: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton />
+            <IonBackButton defaultHref="/home" />
           </IonButtons>
           <IonTitle class="ion-text-center">Details</IonTitle>
           <IonButtons slot="end">
