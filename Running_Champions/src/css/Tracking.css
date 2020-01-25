@@ -1,0 +1,29 @@
+#tracking .item {
+    margin: 20px 0;
+    display: flex;
+}
+
+#tracking .item-label {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#tracking .item-data {
+    width: 60%;
+    display: flex;
+    align-items: center
+}
+
+#tracking .item-data ion-button {
+    padding: 0 5px;
+}
+
+#tracking .map-placeholder {
+    width: 100%;
+    left: 0;
+    margin: 0;
+    height: 75%;
+    border: 2px solid black;
+}

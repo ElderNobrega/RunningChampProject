@@ -5,7 +5,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { AppPage } from './declarations';
 
 import Menu from './components/Menu';
-import { list, unlock } from 'ionicons/icons';
+import { home, mail, unlock, settings, people } from 'ionicons/icons';
 
 /* Importing each page for the router */
 import Home from './pages/Home';
@@ -49,31 +49,11 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 const appPages: AppPage[] = [
-  {
-    title: 'Home',
-    url: '/home',
-    icon: unlock
-  },
-  {
-    title: 'Login',
-    url: '/login',
-    icon: unlock
-  },
-  {
-    title: 'Messages',
-    url: '/messages',
-    icon: list
-  },
-  {
-    title: 'Settings',
-    url: '/settings',
-    icon: list
-  },
-  {
-    title: 'About Us',
-    url: '/about',
-    icon: list
-  }
+  {    title: 'Home',        url: '/home',        icon: home      },
+  {    title: 'Login',       url: '/login',       icon: unlock    },
+  {    title: 'Messages',    url: '/messages',    icon: mail      },
+  {    title: 'Settings',    url: '/settings',    icon: settings  },
+  {    title: 'About Us',    url: '/about',       icon: people    }
 ];
 
 const App: React.FC = () => (
