@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="home-card" button routerLink="/competition" onClick={(e) => console.log('competition page')}>
+        <IonCard className="home-card" button routerLink="/compList" onClick={(e) => console.log('competition List page')}>
           <IonCardHeader>
             <IonCardTitle>Competitions</IonCardTitle>
           </IonCardHeader>
