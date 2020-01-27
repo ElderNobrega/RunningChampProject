@@ -1,0 +1,23 @@
+#compDetail .comp-detail {
+    margin: 20px 0;
+    display: flex;
+    padding: 0 20px;
+}
+
+#compDetail .fee, .entrants {
+    float: right;
+}
+
+#compDetail .comp-item {
+    width: 10%;
+    display: flex;
+    align-items: center;
+}
+
+#list .comp-item-list {
+    margin: 0 5%;
+}
+
+#list .comp-item-first {
+    width: 25%; 
+}
