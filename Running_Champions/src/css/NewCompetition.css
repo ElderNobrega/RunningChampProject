@@ -1,0 +1,9 @@
+#new-competition ion-radio {
+    margin-left: unset;
+    margin-inline-start: 32px;
+}
+
+#new-competition .radio-item {
+    display: inline-block;
+    --inner-border-width: 0;
+}

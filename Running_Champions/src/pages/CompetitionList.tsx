@@ -41,6 +41,7 @@ const CompListPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       
+      <IonContent>
         <IonSearchbar></IonSearchbar>
         
         <IonList>
@@ -53,7 +54,6 @@ const CompListPage: React.FC = () => {
           </IonSelect>
         </IonList>
 
-      <IonContent>
         <ListItems></ListItems>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton routerLink="/compNew" onClick={(e) => console.log('new competition page')}>Create</IonFabButton>
