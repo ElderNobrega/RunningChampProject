@@ -1,5 +1,7 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem, IonList, IonLabel, IonInput, IonRadioGroup, IonListHeader, IonRadio, IonButton, IonTextarea } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem, IonList, 
+         IonLabel, IonInput, IonRadioGroup, IonListHeader, IonRadio, IonButton, IonTextarea } from '@ionic/react';
 import React from 'react';
+import '../css/NewCompetition.css';
 
 const NewCompPage: React.FC = () => {
   return (
@@ -16,7 +18,7 @@ const NewCompPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent>
+      <IonContent id="new-competition">
         <form>
           <IonList>
             <IonItem>
@@ -27,21 +29,19 @@ const NewCompPage: React.FC = () => {
               <IonLabel>Fee $:</IonLabel>
               <IonInput type='number' required></IonInput>
             </IonItem>
-            <IonItem>
-              <IonRadioGroup>
-                <IonListHeader>
-                  <IonLabel>Competition type</IonLabel>
-                </IonListHeader>
-                <IonItem>
-                  <IonLabel>Private</IonLabel>
-                  <IonRadio value='private'></IonRadio>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Public</IonLabel>
-                  <IonRadio slot='end' value='public'></IonRadio>
-                </IonItem>
-              </IonRadioGroup>
-            </IonItem>
+            <IonRadioGroup>
+              <IonListHeader>
+                <IonLabel>Competition type</IonLabel>
+              </IonListHeader>
+              <IonItem className="radio-item">
+                <IonLabel>Private</IonLabel>
+                <IonRadio value='private'></IonRadio>
+              </IonItem>
+              <IonItem className="radio-item">
+                <IonLabel>Public</IonLabel>
+                <IonRadio slot='end' value='public'></IonRadio>
+              </IonItem>
+            </IonRadioGroup>
             <IonItem>
               <IonLabel>Start Date:</IonLabel>
               <IonInput type='date' required></IonInput>
