@@ -1,18 +1,5 @@
-import { IonBackButton, 
-        IonButtons, 
-        IonContent, 
-        IonHeader, 
-        IonMenuButton, 
-        IonPage, 
-        IonTitle, 
-        IonToolbar,
-        IonCard,
-        IonItem,
-        IonLabel,
-        IonCardTitle,
-        IonCardHeader,
-        IonList
-      } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard,
+        IonCardTitle, IonCardHeader, IonList} from '@ionic/react';
 import React from 'react';
 import '../css/CompDetail.css';
 import { runInContext } from 'vm';
