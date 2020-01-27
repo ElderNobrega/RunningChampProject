@@ -9,14 +9,10 @@ import {  IonBackButton,
           IonToolbar, 
           IonList,
           IonListHeader,
-          IonItem,
-          IonLabel,
           IonSelect,
           IonSelectOption,
           IonCard,
           IonCardTitle,
-          IonButton,
-          IonIcon,
           IonFab,
           IonFabButton,
           IonCardHeader,
@@ -40,8 +36,8 @@ const CompListPage: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      
-      <IonContent>
+
+      <IonContent id="competition-list">
         <IonSearchbar></IonSearchbar>
         
         <IonList>

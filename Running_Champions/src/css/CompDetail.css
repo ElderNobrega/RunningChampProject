@@ -1,16 +1,14 @@
 #compDetail .comp-detail {
     margin: 20px 0;
-    /*display: flex;*/
     padding: 0 20px;
 }
 
-#compDetail .fee, .entrants {
+#compDetail .fee, #compDetail .entrants {
     float: right;
 }
 
 #compDetail .comp-item {
     width: 10%;
-    /*display: flex;*/
     align-items: center;
 }
 
