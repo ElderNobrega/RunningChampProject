@@ -2,7 +2,6 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPag
         IonCardTitle, IonCardHeader, IonList} from '@ionic/react';
 import React from 'react';
 import '../css/CompDetail.css';
-import { runInContext } from 'vm';
 
 const CompDetailsPage: React.FC = () => {
   const comp = {compName: "Competition Name", fee: 10, avgKm: "(8km - 10km)", entrants: 41, startDate: "02/31/2020", endDate: "03/31/2020"}
