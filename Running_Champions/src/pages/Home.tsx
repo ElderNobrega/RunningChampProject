@@ -3,17 +3,18 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
-/*  IonCardSubtitle,*/
   IonCardTitle,
   IonContent,
   IonHeader,
   IonMenuButton,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  IonFab, 
+  IonFabButton
   } from '@ionic/react';
 import React from 'react';
-import './Home.css';
+import '../css/Home.css';
 
 const HomePage: React.FC = () => {
   return (
@@ -28,23 +29,7 @@ const HomePage: React.FC = () => {
       </IonHeader>
       <IonContent>
 
-{/*
-        <IonCard className="welcome-card">
-          <img src="/assets/shapes.svg" alt=""/>
-          <IonCardHeader>
-            <IonCardSubtitle>Get Started</IonCardSubtitle>
-            <IonCardTitle>Welcome to Ionic</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <p>
-              Now that your app has been created, you'll want to start building out features and
-              components. Check out some of the resources below for next steps.
-            </p>
-          </IonCardContent>
-        </IonCard>
-*/}
-
-        <IonCard className="welcome-card">
+        <IonCard className="home-card" button routerLink="/history" onClick={(e) => console.log('history page')}>
           <IonCardHeader>
             <IonCardTitle>History</IonCardTitle>
           </IonCardHeader>
@@ -55,7 +40,7 @@ const HomePage: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="welcome-card">
+        <IonCard className="home-card" button routerLink="/team" onClick={(e) => console.log('team page')}>
           <IonCardHeader>
             <IonCardTitle>Team</IonCardTitle>
           </IonCardHeader>
@@ -66,7 +51,7 @@ const HomePage: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="welcome-card">
+        <IonCard className="home-card" button routerLink="/compList" onClick={(e) => console.log('competition List page')}>
           <IonCardHeader>
             <IonCardTitle>Competitions</IonCardTitle>
           </IonCardHeader>
@@ -77,7 +62,7 @@ const HomePage: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="welcome-card">
+        <IonCard className="home-card" button routerLink="/statistics" onClick={(e) => console.log('statistics page')}>
           <IonCardHeader>
             <IonCardTitle>Statistics</IonCardTitle>
           </IonCardHeader>
@@ -87,6 +72,10 @@ const HomePage: React.FC = () => {
             </p>
           </IonCardContent>
         </IonCard>
+
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton routerLink="/tracking" onClick={(e) => console.log('tracking page')}>Start Run</IonFabButton>
+        </IonFab>
 
       </IonContent>
     </IonPage>
