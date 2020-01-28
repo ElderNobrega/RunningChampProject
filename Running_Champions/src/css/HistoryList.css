@@ -1,3 +1,17 @@
-.time, .distance {
+#history .time, #history .distance {
     float: right;
+}
+
+#history .item {
+    display: flex;
+}
+
+#history .item-label {
+    width: 25%;
+}
+
+#history .item-data {
+    --padding-top: 11px;
+    margin-right: 10px;
+    width: 75%;
 }

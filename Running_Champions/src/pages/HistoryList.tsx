@@ -1,4 +1,4 @@
-import { IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonList, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonSearchbar, IonListHeader, IonSelect, IonSelectOption, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonList, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
 import '../css/HistoryList.css';
 
@@ -17,7 +17,18 @@ const HistoryListPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent>
+      <IonContent id="history">
+        <IonSearchbar></IonSearchbar>
+        
+        <IonList className="item">
+          <IonListHeader className="item-label">Sorted by:</IonListHeader>
+          <IonSelect className="item-data" interface='popover'>
+            <IonSelectOption value='date' selected>Date</IonSelectOption>
+            <IonSelectOption value='distance'>Distance</IonSelectOption>
+          </IonSelect>
+        </IonList>
+
+
           <ListItems></ListItems>
       </IonContent>
     </IonPage>
