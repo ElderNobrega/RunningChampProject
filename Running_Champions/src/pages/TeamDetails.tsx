@@ -46,16 +46,16 @@ const TeamDetailsPage: React.FC = () => {
                 <IonCol><IonHeader>MEMBERS</IonHeader></IonCol>  <IonCol><IonHeader>AVG</IonHeader></IonCol>
               </IonRow>
               <IonRow>
-                <IonCol><span>{team.member1}</span></IonCol>  <IonCol><span> 3 km </span></IonCol>
+                <IonCol><span>{team.member1}</span></IonCol>  <IonCol><span> 3 </span>Km/h</IonCol>
               </IonRow>
               <IonRow>
-                <IonCol><span>{team.member2}</span></IonCol>  <IonCol><span> 4 km </span> Km/h</IonCol>
+                <IonCol><span>{team.member2}</span></IonCol>  <IonCol><span> 4 </span> Km/h</IonCol>
               </IonRow>
               <IonRow>
-                <IonCol><span>{team.member3}</span></IonCol>  <IonCol><span> 3 km </span>Km</IonCol>
+                <IonCol><span>{team.member3}</span></IonCol>  <IonCol><span> 3 </span>Km/h</IonCol>
               </IonRow>
               <IonRow>
-                <IonCol><span>{team.member4}</span></IonCol>  <IonCol><span> 2 km </span>Km</IonCol>
+                <IonCol><span>{team.member4}</span></IonCol>  <IonCol><span> 2 </span>Km/h</IonCol>
               </IonRow>
             </IonGrid>
             <IonButton color="success" slot="end">Invite</IonButton>
