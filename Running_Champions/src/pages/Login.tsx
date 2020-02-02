@@ -9,8 +9,9 @@ import { IonBackButton,
         IonLabel, 
         IonItem, 
         IonInput,
-        IonButton } from '@ionic/react';
+        IonButton, IonFab, IonFabButton, } from '@ionic/react';    
 import React from 'react';
+import { register } from '../serviceWorker';
 
 const LoginPage: React.FC = () => {
   return (
@@ -49,7 +50,22 @@ const LoginPage: React.FC = () => {
           <IonButton fill='clear'>Register here</IonButton>
            
         </div>
-        
+
+        <IonLabel className="login label" button routerLink="/register" onClick={(e) => console.log('register page')}>
+          <IonHeader>
+            <IonTitle>Register</IonTitle>
+          </IonHeader>
+          <IonContent>
+            <p>
+              Register Content
+            </p>
+          </IonContent>
+        </IonLabel>
+
+        <IonFab vertical ="button" horizontal="end" slot="fixed">
+          <IonFabButton routerLink="/register" onClick={(e) => console.log('register page')}>Register here</IonFabButton>
+        </IonFab>
+
       </IonContent>
     </IonPage>
   );
