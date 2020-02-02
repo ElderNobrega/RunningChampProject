@@ -49,6 +49,7 @@ const LoginPage: React.FC = () => {
           <IonButton fill='clear'>Register here</IonButton>
            
         </div>
+        
       </IonContent>
     </IonPage>
   );
