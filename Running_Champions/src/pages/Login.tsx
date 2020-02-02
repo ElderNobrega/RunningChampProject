@@ -51,18 +51,13 @@ const LoginPage: React.FC = () => {
            
         </div>
 
-        <IonLabel className="login label" button routerLink="/register" onClick={(e) => console.log('register page')}>
-          <IonHeader>
-            <IonTitle>Register</IonTitle>
-          </IonHeader>
-          <IonContent>
-            <p>
-              Register Content
-            </p>
-          </IonContent>
-        </IonLabel>
+        
 
-        <IonFab vertical ="button" horizontal="end" slot="fixed">
+        <IonFab vertical ="bottom" horizontal="end" slot="fixed">
+          <IonFabButton routerLink="/forgot" onClick={(e) => console.log('forgot page')}>Register here</IonFabButton>
+        </IonFab>
+
+        <IonFab vertical ="bottom" horizontal="end" slot="fixed">
           <IonFabButton routerLink="/register" onClick={(e) => console.log('register page')}>Register here</IonFabButton>
         </IonFab>
 
