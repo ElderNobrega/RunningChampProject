@@ -52,18 +52,6 @@ const LoginPage: React.FC = () => {
           Register here</IonButton>
            
         </div>
-
-        
-      
-
-        <IonFab vertical ="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/forgot" onClick={(e) => console.log('forgot page')}>Register here</IonFabButton>
-        </IonFab>
-
-        <IonFab vertical ="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/register" onClick={(e) => console.log('register page')}>Register here</IonFabButton>
-        </IonFab>
-
       </IonContent>
     </IonPage>
   );
