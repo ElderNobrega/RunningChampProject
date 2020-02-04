@@ -1,6 +1,7 @@
 import { IonCard, IonFab, IonFabButton, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { RouteComponentProps } from 'react-router';
 import React from 'react';
+import { Run, getSize, addRun } from '../components/localDB';
 import '../css/Tracking.css';
 
 const TrackingPage: React.FC<RouteComponentProps> = (props) => {
@@ -35,7 +36,16 @@ const TrackingPage: React.FC<RouteComponentProps> = (props) => {
 
           <IonFab vertical="bottom" horizontal="end" slot="fixed">
             <IonFabButton onClick={() => {
-                props.history.replace("/details");
+              getSize().then(size => {
+                let pos = size + 1;
+                addRun(new Run(pos, "Test Run " + pos, pos, "01/01/2020 12:00pm", pos * 1500)).then(index => {
+                  props.history.replace("/details/" + index);
+                });
+              });
+
+              /*addRun(new Run("Test Run", 10, "01/01/2020 12:00pm", 1500)).then(index => {
+                props.history.replace("/details/" + index);
+              });*/
             }}>Stop Run</IonFabButton>
           </IonFab>
 
