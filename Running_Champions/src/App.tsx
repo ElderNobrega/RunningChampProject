@@ -65,7 +65,7 @@ const App: React.FC = () => (
           <Route path="/home" component={Home} exact={true} />
           <Route path="/tracking" component={Tracking} exact={true} />
           <Route path="/history" component={History} exact={true} />
-          <Route path="/details" component={Details} exact={true} />
+          <Route path="/details/:id" component={Details} exact={true} />
           <Route path="/team" component={Team} exact={true} />
           <Route path="/competition" component={Competition} exact={true} />
           <Route path="/compList" component={CompList} exact={true} />
