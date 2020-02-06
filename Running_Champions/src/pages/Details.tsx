@@ -3,7 +3,6 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { getRuns } from '../components/localDB';
 import '../css/Details.css';
-import { runInThisContext } from 'vm';
 
 interface DetailPageProps extends RouteComponentProps<{
   id: string;
