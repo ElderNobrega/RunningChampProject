@@ -1,7 +1,6 @@
 import { IonCol, IonRow, IonGrid, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { IonButton, IonIcon } from '@ionic/react';
+import { IonButton } from '@ionic/react';
 import React from 'react';
-import { copyFile } from 'fs';
 
 const comp = {compName: "Firestorm Competition", fee: 25, 
               distance: "12km", position:"3rd", entrants: 41, 
