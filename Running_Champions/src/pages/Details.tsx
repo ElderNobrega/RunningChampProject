@@ -3,6 +3,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { getRuns } from '../components/localDB';
 import '../css/Details.css';
+import { runInThisContext } from 'vm';
 
 interface DetailPageProps extends RouteComponentProps<{
   id: string;
@@ -31,6 +32,16 @@ const DetailsPage: React.FC<DetailPageProps> = ({match}) => {
     let date = (document.getElementById('date') as HTMLSpanElement);
     if (date != null) {
         date.innerHTML = run.date;
+    }
+
+    let map = document.getElementById('map');
+    if (map != null) {
+      let output = "";
+      run.positions.forEach((e) => {
+        output += `{lat: ${e.lat}, long: ${e.long}, time: ${e.timestamp}}<br />`
+      });
+      
+      map.innerHTML = output;
     }
 
   });
@@ -72,7 +83,7 @@ const DetailsPage: React.FC<DetailPageProps> = ({match}) => {
             </div>
           </section>
           
-          <IonCard className="map-placeholder">Insert Map Here</IonCard>
+          <IonCard className="map-placeholder" id="map">Insert Map Here</IonCard>
       </IonContent>
     </IonPage>
   );
