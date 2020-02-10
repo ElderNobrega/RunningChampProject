@@ -1,9 +1,49 @@
 import { IonCard, IonButton, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
+import { RouteComponentProps } from 'react-router';
+import { getRuns } from '../components/localDB';
 import '../css/Details.css';
 
-const DetailsPage: React.FC = () => {
-  const run = { name: "Run 1", time: 10, date: "01/01/2020 1:00pm", distance: 1.0 };
+interface DetailPageProps extends RouteComponentProps<{
+  id: string;
+}> {}
+  
+const DetailsPage: React.FC<DetailPageProps> = ({match}) => {
+
+  getRuns().then(data => {
+    let run = data[parseInt(match.params.id)];
+
+    let name = (document.getElementById('name') as HTMLInputElement);
+    if (name != null) {
+        name.defaultValue = run.name;
+    }
+
+    let time = (document.getElementById('time') as HTMLSpanElement);
+    if (time != null) {
+        time.innerHTML = run.time + ' min';
+    }
+
+    let distance = (document.getElementById('distance') as HTMLSpanElement);
+    if (distance != null) {
+        distance.innerHTML = run.distance / 1000 + ' km';
+    }
+
+    let date = (document.getElementById('date') as HTMLSpanElement);
+    if (date != null) {
+        date.innerHTML = run.date;
+    }
+
+    let map = document.getElementById('map');
+    if (map != null) {
+      let output = "";
+      run.positions.forEach((e) => {
+        output += `{lat: ${e.lat}, long: ${e.long}, time: ${e.timestamp}}<br />`
+      });
+      
+      map.innerHTML = output;
+    }
+
+  });
 
   return (
     <IonPage>
@@ -24,25 +64,25 @@ const DetailsPage: React.FC = () => {
             <div className="item">
                 <span className="item-label">Name:</span>
                 <span className="item-data">
-                    <input defaultValue={ run.name } /> 
+                    <input id="name" /> 
                     <IonButton onClick={(e) => console.log('save button')}>Save</IonButton>
                 </span>
             </div>
             <div className="item">
                 <span className="item-label">Duration:</span>
-                <span className="item-data">{ run.time } min</span>
+                <span className="item-data" id="time"></span>
             </div>
             <div className="item">
                 <span className="item-label">Distance:</span>
-                <span className="item-data">{ run.distance } km</span>
+                <span className="item-data" id="distance"></span>
             </div>
             <div className="item">
                 <span className="item-label">Date:</span>
-                <span className="item-data">{ run.date }</span>
+                <span className="item-data" id="date"></span>
             </div>
           </section>
           
-          <IonCard className="map-placeholder">Insert Map Here</IonCard>
+          <IonCard className="map-placeholder" id="map">Insert Map Here</IonCard>
       </IonContent>
     </IonPage>
   );
