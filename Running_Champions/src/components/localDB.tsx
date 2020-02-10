@@ -1,111 +1,51 @@
 import { Plugins } from '@capacitor/core';
+import * as PluginsLibrary from '@jeepq/capacitor';
+const { CapacitorDataStorageSqlite, Device } = Plugins;
 
-const { Storage } = Plugins;
+export class StorageAPIWrapper {
+    public storage: any = {}
 
-export class Run {
-    id: number;
-    name: string;
-    time: number;
-    date: string;
-    distance: number;
-    positions: Position[];
-
-    constructor(i: number, n: string, t: number, da: string, di: number, p: Position[]) {
-      this.id = i;
-      this.name = n;
-      this.time = t;
-      this.date = da;
-      this.distance = di;
-      this.positions = p;
+    async init(): Promise<void> {
+        const info = await Device.getInfo();
+        console.log('platform ',info.platform)
+        if (info.platform === "ios" || info.platform === "android") {
+            this.storage = CapacitorDataStorageSqlite;
+        }  else {
+            this.storage = PluginsLibrary.CapacitorDataStorageSqlite;     
+        } 
+    }
+    public async openStore(options:any): Promise<boolean> {
+        await this.init();
+        const {result} = await this.storage.openStore(options);
+        return result;
+    }
+    public async setTable(table:any): Promise<any>  {
+        const {result,message} = await this.storage.setTable(table);
+        return Promise.resolve([result,message]);
+    }
+    public async setItem(key:string, value:string): Promise<void> {
+        await this.storage.set({ key, value });
+      return;
+    }
+    public async getItem(key:string): Promise<string> {
+        const {value} = await this.storage.get({ key });
+      return value;
+    }
+    public async getAllKeys(): Promise<Array<string>> {
+        const {keys} = await this.storage.keys();
+      return keys;
+    }
+    public async removeItem(key:string): Promise<void> {
+        await this.storage.remove({ key });
+      return;
+    }
+    public async clear(): Promise<void> {
+        await this.storage.clear();
+      return;
+    }
+    public async deleteStore(options:any): Promise<boolean> {
+        await this.init();
+        const {result} = await this.storage.deleteStore(options);
+        return result;
     }
 }
-
-export class Position {
-  lat: number;
-  long: number;
-  timestamp: number;
-
-  constructor(la: number, lo: number, time: number) {
-    this.lat = la;
-    this.long = lo;
-    this.timestamp = time;
-  }
-}
-
-export async function addRun(run: Run): Promise<number> {
-  const { keys } = await Storage.keys();
-
-  console.log(run);
-  await Storage.set({
-    key: keys.length.toString(),
-    value: JSON.stringify(run)
-  });
-  return keys.length;
-}
-
-export async function getRuns(): Promise<Run[]> {
-
-  // Clears local db when you view history page
-  // For debug purposes only
-  //await Storage.clear();
-
-  let { keys } = await Storage.keys();
-  keys.sort((a: string, b: string) => {
-    let intA = parseInt(a);
-    let intB = parseInt(b);
-    return (intA < intB) ? -1 : ((intA === intB) ? 0 : 1);
-  });
-  let runs: Run[] = [];
-
-  for (let i = 0; i < keys.length; i++) {
-    const { value } = await Storage.get({ key: keys[i] });
-    if (value != null) {
-      runs.push(JSON.parse(value));
-    }
-  }
-  return runs;
-}
-
-export async function getSize() {
-  const { keys } = await Storage.keys();
-  return keys.length;
-}
-
-/*
-async function setObject(k: string, obj: Run[]) {
-  await Storage.set({
-    key: k,
-    value: JSON.stringify(obj)
-  });
-}
-
-async function getObject(k: string): Promise<Run[]> {
-  const { value } = await Storage.get({ key: k });
-  return value != null ? JSON.parse(value) : [];
-}
-
-async function setItem(k: string, val: string) {
-  await Storage.set({
-    key: k,
-    value: val
-  });
-}
-
-async function getItem(k: string): Promise<string> {
-  const { value } = await Storage.get({ key: k });
-  return value != null ? value : "";
-}
-
-async function removeItem(k: string) {
-  await Storage.remove({ key: k });
-}
-
-async function keys() {
-  const { keys } = await Storage.keys();
-  return keys;
-}
-
-async function clear() {
-  await Storage.clear();
-}
-*/

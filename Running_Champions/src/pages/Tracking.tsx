@@ -2,7 +2,8 @@ import { withIonLifeCycle, IonCard, IonFab, IonFabButton, IonBackButton, IonButt
 import { RouteComponentProps } from 'react-router';
 import React from 'react';
 import { Plugins } from '@capacitor/core';
-import { Position, Run, getSize, addRun } from '../components/localDB';
+import { Run, Position } from '../components/classes';
+import { StorageAPIWrapper } from '../components/localDB';
 import '../css/Tracking.css';
 
 const { Geolocation } = Plugins;
@@ -28,9 +29,9 @@ class TrackingPage extends React.Component<RouteComponentProps> {
 
   watch: string = "";
   positions: Position[] = [];
+  storage: StorageAPIWrapper = new StorageAPIWrapper();
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter event fired');
     this.watch = watchPosition(this.positions);
   }
   
@@ -81,19 +82,21 @@ class TrackingPage extends React.Component<RouteComponentProps> {
 
               clearWatch(this.watch);
 
-              getSize().then(size => {
-                let pos = size + 1;
-                let run = new Run(pos, "Test Run " + pos, pos, "01/01/2020 12:00pm", pos * 1500, this.positions);
-                addRun(run).then(index => {
-                  this.props.history.replace("/details/" + index);
-                });
+              this.storage.openStore({ database:"local", table:"runs" }).then(result => {
+                if (result) {
+                  this.storage.getAllKeys().then(keys => {
+                    let pos = keys.length + 1;
+                    let run = new Run(pos, "Test Run " + pos, pos, "01/01/2020 12:00pm", pos * 1500, this.positions);
+                    this.storage.setItem(pos.toString(), JSON.stringify(run)).then(() => {
+                      this.props.history.replace("/details/" + pos);
+                    });
+                  });
+                }
+                else {
+                  console.log('Problem opening local database');
+                }
               });
 
-              /*
-              addRun(new Run("Test Run", 10, "01/01/2020 12:00pm", 1500)).then(index => {
-                props.history.replace("/details/" + index);
-              });
-              */
             }}>Stop Run</IonFabButton>
           </IonFab>
 
