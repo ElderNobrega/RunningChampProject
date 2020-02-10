@@ -1,6 +1,6 @@
 import { IonBackButton, IonButtons, IonContent, IonHeader,
    IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem,
-   IonLabel,IonInput,IonButton} from '@ionic/react';
+   IonLabel,IonInput,IonButton,IonFab} from '@ionic/react';
 import React from 'react';
 
 const RegisterPage: React.FC = () => {
