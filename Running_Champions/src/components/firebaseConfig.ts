@@ -28,4 +28,16 @@ export async function loginUser(username: string, password: string) {
     // Authentication with firebase
     // if present, show home
     //if not, show error msg 
+    
+    const email = `${username}@gmail.com`
+
+    try{
+        const res = await fb.auth().signInWithEmailAndPassword(email, password)
+        console.log(res)
+        return true
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+    
 }
