@@ -29,7 +29,7 @@ export async function loginUser(username: string, password: string) {
     // if present, show home
     //if not, show error msg 
     
-    const email = `${username}@gmail.com`
+    const email = `${username}`
 
     try{
         const res = await fb.auth().signInWithEmailAndPassword(email, password)

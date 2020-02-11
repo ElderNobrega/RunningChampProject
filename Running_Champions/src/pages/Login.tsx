@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
             <IonLabel>Password:</IonLabel>
             <IonInput type='password' onIonChange={(e: any) => setPassword(e.target.value)} required></IonInput>
           </IonItem>
-          <IonButton type='submit' class='ion-margin-horizontal ion-margin-top' shape='round' onClick={login}>Login</IonButton>
+          <IonButton class='ion-margin-horizontal ion-margin-top' shape='round' onClick={login}>Login</IonButton>
         </form>
       </IonContent>
       <IonContent>
