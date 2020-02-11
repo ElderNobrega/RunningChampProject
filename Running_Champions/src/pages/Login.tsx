@@ -1,15 +1,5 @@
-import { IonBackButton, 
-        IonButtons,   
-        IonContent, 
-        IonHeader, 
-        IonMenuButton, 
-        IonPage, 
-        IonTitle, 
-        IonToolbar, 
-        IonLabel, 
-        IonItem, 
-        IonInput,
-        IonButton, IonFab, IonFabButton, } from '@ionic/react';    
+import { IonBackButton,IonButtons,IonContent, IonHeader,IonMenuButton,IonPage,IonTitle, 
+        IonToolbar,IonLabel,IonItem,IonInput,IonButton} from '@ionic/react';    
 import React from 'react';
 import { register } from '../serviceWorker';
 
