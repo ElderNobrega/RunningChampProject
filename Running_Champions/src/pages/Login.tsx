@@ -9,10 +9,9 @@ import { IonBackButton,
         IonLabel, 
         IonItem, 
         IonInput,
-        IonButton, IonFab, IonFabButton, } from '@ionic/react';    
+        IonButton} from '@ionic/react';    
 import React, { useState } from 'react';
-import { register } from '../serviceWorker';
-import {loginUser} from '../components/firebaseConfig'
+import {loginUser} from '../components/firebaseConfig';
 
 const LoginPage: React.FC = () => {
 
