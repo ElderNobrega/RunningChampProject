@@ -9,9 +9,8 @@ import { IonBackButton,
         IonLabel, 
         IonItem, 
         IonInput,
-        IonButton, IonFab, IonFabButton, } from '@ionic/react';    
+        IonButton } from '@ionic/react';    
 import React from 'react';
-import { register } from '../serviceWorker';
 
 const LoginPage: React.FC = () => {
   return (
