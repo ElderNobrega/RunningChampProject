@@ -12,6 +12,7 @@ import { IonBackButton,
         IonButton} from '@ionic/react';    
 import React, { useState } from 'react';
 import {loginUser} from '../components/firebaseConfig';
+import {toast} from '../components/toast';
 
 const LoginPage: React.FC = () => {
 
@@ -20,7 +21,11 @@ const LoginPage: React.FC = () => {
 
   async function login() {
     const res = await loginUser(username, password)
-    console.log(`${res ? 'Login succsess' : "Login failed"}`)
+    if (!res) {
+      toast('Error loggin with your credentials')
+    } else {
+      toast('you have logged in!')
+    }
   }
   return (
     <IonPage>
