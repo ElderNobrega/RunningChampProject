@@ -14,7 +14,7 @@ import {
   IonFabButton
   } from '@ionic/react';
 import React from 'react';
-import '../css/Home.css';
+import '../css/Home.css'; 
 
 const HomePage: React.FC = () => {
   return (
