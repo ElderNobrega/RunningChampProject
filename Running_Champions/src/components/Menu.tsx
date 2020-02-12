@@ -11,14 +11,18 @@ import {
   IonToolbar
 } from '@ionic/react';
 import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { AppPage } from '../declarations';
+import { withRouter } from 'react-router-dom';
+import { home, mail, logIn, settings, people } from 'ionicons/icons';
 
-interface MenuProps extends RouteComponentProps {
-  appPages: AppPage[];
-}
+const appPages: any[] = [
+  {    title: 'Home',        url: '/home',        icon: home     },
+  {    title: 'Login',       url: '/login',       icon: logIn    },
+  {    title: 'Messages',    url: '/messages',    icon: mail     },
+  {    title: 'Settings',    url: '/settings',    icon: settings },
+  {    title: 'About Us',    url: '/about',       icon: people   }
+];
 
-const Menu: React.FunctionComponent<MenuProps> = ({ appPages }) => (
+const Menu: React.FunctionComponent = () => (
   <IonMenu contentId="main" type="overlay" side="end">
     <IonHeader>
       <IonToolbar>

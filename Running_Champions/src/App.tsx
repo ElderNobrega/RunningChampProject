@@ -2,10 +2,8 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { AppPage } from './declarations';
 
 import Menu from './components/Menu';
-import { home, mail, unlock, settings, people } from 'ionicons/icons';
 
 /* Importing each page for the router */
 import Home from './pages/Home';
@@ -48,19 +46,11 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const appPages: AppPage[] = [
-  {    title: 'Home',        url: '/home',        icon: home      },
-  {    title: 'Login',       url: '/login',       icon: unlock    },
-  {    title: 'Messages',    url: '/messages',    icon: mail      },
-  {    title: 'Settings',    url: '/settings',    icon: settings  },
-  {    title: 'About Us',    url: '/about',       icon: people    }
-];
-
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonSplitPane contentId="main">
-        <Menu appPages={appPages} />
+        <Menu />
         <IonRouterOutlet id="main">
           <Route path="/home" component={Home} exact={true} />
           <Route path="/tracking" component={Tracking} exact={true} />
