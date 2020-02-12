@@ -1,18 +1,18 @@
 export class Run {
     id: number;
     name: string;
-    time: number;
+    duration: number;
     date: string;
     distance: number;
     positions: Position[];
 
-    constructor(i: number, n: string, t: number, da: string, di: number, p: Position[]) {
-      this.id = i;
-      this.name = n;
-      this.time = t;
-      this.date = da;
-      this.distance = di;
-      this.positions = p;
+    constructor(id: number, name: string, duration: number, date: string, distance: number, position: Position[]) {
+      this.id = id;
+      this.name = name;
+      this.duration = duration;
+      this.date = date;
+      this.distance = distance;
+      this.positions = position;
     }
 }
 
@@ -21,9 +21,9 @@ export class Position {
   long: number;
   timestamp: number;
 
-  constructor(la: number, lo: number, time: number) {
-    this.lat = la;
-    this.long = lo;
+  constructor(lat: number, long: number, time: number) {
+    this.lat = lat;
+    this.long = long;
     this.timestamp = time;
   }
 }

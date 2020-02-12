@@ -1,7 +1,7 @@
 import { withIonLifeCycle, IonSearchbar, IonListHeader, IonSelect, IonSelectOption, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonList, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
 import { Run } from '../components/classes';
-import { StorageAPIWrapper } from '../components/localDB';
+import { StorageAPIWrapper } from '../helperFunctions/localDB';
 import '../css/HistoryList.css';
 
 class HistoryListPage extends React.Component {
@@ -57,7 +57,7 @@ class HistoryListPage extends React.Component {
             <IonCardHeader>
               <IonCardTitle>
                   <span className="name">{ run.name }</span>
-                  <span className="time">{ run.time } min</span>
+                  <span className="time">{ run.duration / 1000 } sec</span>
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>

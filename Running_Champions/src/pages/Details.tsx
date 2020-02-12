@@ -1,10 +1,9 @@
 import { withIonLifeCycle, IonCard, IonCardContent, IonButton, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Position } from '../components/classes';
-import { StorageAPIWrapper } from '../components/localDB';
+import { Run, Position } from '../components/classes';
+import { StorageAPIWrapper } from '../helperFunctions/localDB';
 import '../css/Details.css';
-import { Run } from '../components/localDB.old';
 
 interface DetailPageProps extends RouteComponentProps<{
   id: string;
@@ -69,7 +68,7 @@ class DetailsPage extends React.Component<DetailPageProps> {
               </div>
               <div className="item">
                   <span className="item-label">Duration:</span>
-                  <span className="item-data" id="time">{ this.state.isFetching ? "" : this.run.time + ' min' }</span>
+                  <span className="item-data" id="time">{ this.state.isFetching ? "" : (this.run.duration / 1000) + ' sec' }</span>
               </div>
               <div className="item">
                   <span className="item-label">Distance:</span>
