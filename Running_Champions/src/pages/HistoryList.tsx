@@ -89,9 +89,9 @@ class HistoryListPage extends React.Component {
             
             <IonList className="item">
                 <IonListHeader className="item-label">Sorted by:</IonListHeader>
-                <IonSelect className="item-data" interface='popover'>
-                <IonSelectOption value='date' selected>Date</IonSelectOption>
-                <IonSelectOption value='distance'>Distance</IonSelectOption>
+                <IonSelect className="item-data" interface='popover' value='date'>
+                  <IonSelectOption value='date'>Date</IonSelectOption>
+                  <IonSelectOption value='distance'>Distance</IonSelectOption>
                 </IonSelect>
             </IonList>
       
