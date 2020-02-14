@@ -10,3 +10,6 @@ https://capacitor.ionicframework.com/docs/community/plugins/
 
 ### Local SQL Database  
 https://github.com/jepiqueau/jeep/blob/master/capacitor/plugins-library/docs/DataStorage.md  
+
+### Ionic 5 Breaking Changes  
+https://github.com/ionic-team/ionic/blob/master/BREAKING.md#version-5x  
