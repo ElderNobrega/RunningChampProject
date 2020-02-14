@@ -74,7 +74,7 @@ const HomePage: React.FC = () => {
         </IonCard>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/tracking" onClick={(e) => console.log('tracking page')}>Start Run</IonFabButton>
+          <IonFabButton routerLink="/page/Tracking" onClick={(e) => console.log('tracking page')}>Start Run</IonFabButton>
         </IonFab>
 
       </IonContent>
