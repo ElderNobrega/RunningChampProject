@@ -3,7 +3,6 @@ import {  IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPa
           IonCardContent } from '@ionic/react';
 import React from 'react';
 import '../css/CompList.css';
-import { runInContext } from 'vm';
 
 const CompListPage: React.FC = () => {
   return (
