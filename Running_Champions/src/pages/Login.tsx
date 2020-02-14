@@ -6,14 +6,13 @@ import {toast} from '../helperFunctions/toast';
 
 const LoginPage: React.FC = () => {
 
+  const [busy, setBusy] = useState<boolean>(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   async function login() {
     const res = await loginUser(username, password)
-    if (!res) {
-      toast('Error loggin with your credentials')
-    } else {
+    if (res) {
       toast('you have logged in!')
     }
   }
