@@ -13,3 +13,6 @@ https://github.com/jepiqueau/jeep/blob/master/capacitor/plugins-library/docs/Dat
 
 ### Ionic 5 Breaking Changes  
 https://github.com/ionic-team/ionic/blob/master/BREAKING.md#version-5x  
+
+### Firebase Tutorial
+https://www.youtube.com/watch?v=U5aeM5dvUpA&list=PLl-K7zZEsYLmgdxMEHar35Wo26fLWm9BI
