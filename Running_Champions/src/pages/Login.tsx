@@ -1,15 +1,5 @@
-import { IonBackButton, 
-        IonButtons,   
-        IonContent, 
-        IonHeader, 
-        IonMenuButton, 
-        IonPage, 
-        IonTitle, 
-        IonToolbar, 
-        IonLabel, 
-        IonItem, 
-        IonInput,
-        IonButton} from '@ionic/react';    
+import { IonBackButton,IonButtons,IonContent, IonHeader,IonMenuButton,IonPage,IonTitle, 
+        IonToolbar,IonLabel,IonItem,IonInput,IonButton} from '@ionic/react';    
 import React, { useState } from 'react';
 import {loginUser} from '../components/firebaseConfig';
 import {toast} from '../components/toast';
@@ -71,3 +61,6 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+
+
+
