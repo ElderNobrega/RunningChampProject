@@ -2,7 +2,9 @@ import { withIonLifeCycle, IonCard, IonFab, IonFabButton, IonBackButton, IonButt
 import { RouteComponentProps } from 'react-router';
 import React from 'react';
 import { Plugins } from '@capacitor/core';
-import { Position, Run, getSize, addRun } from '../components/localDB';
+import { Run, Position } from '../components/classes';
+import { getTime, getDate, getFullDate, getDuration } from '../helperFunctions/Time';
+import { StorageAPIWrapper } from '../helperFunctions/localDB';
 import '../css/Tracking.css';
 
 const { Geolocation } = Plugins;
@@ -26,24 +28,26 @@ function clearWatch(id: string) {
 
 class TrackingPage extends React.Component<RouteComponentProps> {
 
+  startTime: number = 0;
+  timer: NodeJS.Timeout = {} as NodeJS.Timeout;
+  run: Run = {} as Run;
   watch: string = "";
-  positions: Position[] = [];
+  storage: StorageAPIWrapper = new StorageAPIWrapper();
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter event fired');
-    this.watch = watchPosition(this.positions);
+    this.startTime = getTime();
+    this.run = new Run(this.startTime, getDate(), 0, getFullDate(), 0, []);
+    this.watch = watchPosition(this.run.positions);
+    this.timer = setInterval(() => {
+      let duration = document.getElementById('duration');
+      if (duration != null) {
+        duration.innerHTML = getDuration(this.startTime, getTime());
+      }
+    }, 500);
   }
   
   ionViewWillLeave() {
-    console.log('ionViewWillLeave event fired')
-  }
-  
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter event fired');
-  }
-  
-  ionViewDidLeave() {
-    console.log('ionViewDidLeave event fired')
+    clearInterval(this.timer);
   }
   
   render() {
@@ -68,7 +72,7 @@ class TrackingPage extends React.Component<RouteComponentProps> {
           <section className="tracking-section">
             <div className="item">
                 <span className="item-label">Duration:</span>
-                <span className="item-data">{ "0:00:00" }</span>
+                <span className="item-data" id='duration'>0:00:00</span>
             </div>
             <div className="item">
                 <span className="item-label">Distance:</span>
@@ -81,19 +85,18 @@ class TrackingPage extends React.Component<RouteComponentProps> {
 
               clearWatch(this.watch);
 
-              getSize().then(size => {
-                let pos = size + 1;
-                let run = new Run(pos, "Test Run " + pos, pos, "01/01/2020 12:00pm", pos * 1500, this.positions);
-                addRun(run).then(index => {
-                  this.props.history.replace("/details/" + index);
-                });
+              this.storage.openStore({ database:"local", table:"runs" }).then(result => {
+                if (result) {
+                  this.run.duration = getTime() - this.startTime;
+                  this.storage.setItem(this.run.id.toString(), JSON.stringify(this.run)).then(() => {
+                    this.props.history.replace("/details/" + this.run.id);
+                  });
+                }
+                else {
+                  console.log('Problem opening local database');
+                }
               });
 
-              /*
-              addRun(new Run("Test Run", 10, "01/01/2020 12:00pm", 1500)).then(index => {
-                props.history.replace("/details/" + index);
-              });
-              */
             }}>Stop Run</IonFabButton>
           </IonFab>
 
