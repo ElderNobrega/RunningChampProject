@@ -1,6 +1,6 @@
 import { IonBackButton, IonButtons, IonContent, IonHeader,
    IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem,
-   IonLabel,IonInput,IonButton } from '@ionic/react';
+   IonLabel,IonInput,IonButton, IonLoading } from '@ionic/react';
 import React, { useState } from 'react';
 import { toast } from '../helperFunctions/toast';
 import {registerUser} from '../components/firebaseConfig'
@@ -13,8 +13,10 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState('')
   const [confPassword, setConfPassword] = useState('')
   const [phoneNum, setPhoneNum] = useState('')
+  const [busy, setBusy] = useState<boolean>(false)
 
 async function register() {
+  setBusy(true)
   //validation
   if (password !== confPassword) {
     return toast('Passwords do not match')
@@ -26,6 +28,7 @@ async function register() {
   if(res) {
     toast('You have registered successfully')
   }
+  setBusy(false)
 }
 
   return (
@@ -41,7 +44,7 @@ async function register() {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
+      <IonLoading message="Registration in progress..." duration={0} isOpen={busy}/>
       <IonContent>
       <form>
           <IonItem class='ion-margin-bottom ion-margin-top'>

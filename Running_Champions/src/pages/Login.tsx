@@ -1,5 +1,5 @@
 import { IonBackButton,IonButtons,IonContent, IonHeader,IonMenuButton,IonPage,IonTitle, 
-        IonToolbar,IonLabel,IonItem,IonInput,IonButton} from '@ionic/react';    
+        IonToolbar,IonLabel,IonItem,IonInput,IonButton, IonLoading} from '@ionic/react';    
 import React, { useState } from 'react';
 import {loginUser} from '../components/firebaseConfig';
 import {toast} from '../helperFunctions/toast';
@@ -7,14 +7,17 @@ import {toast} from '../helperFunctions/toast';
 const LoginPage: React.FC = () => {
 
   const [busy, setBusy] = useState<boolean>(false)
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   async function login() {
+    setBusy(true)
     const res = await loginUser(username, password)
     if (res) {
       toast('you have logged in!')
     }
+    setBusy(false)
   }
   return (
     <IonPage>
@@ -29,7 +32,7 @@ const LoginPage: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
+      <IonLoading message="Please wait..." duration={0} isOpen={busy}/>
       <IonContent>
         <form>
           <IonItem class='ion-margin-bottom ion-margin-top'>
