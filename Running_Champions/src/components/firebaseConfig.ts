@@ -1,6 +1,6 @@
 import * as fb from 'firebase'
 
-//var db = fb.database();
+var db = fb.database();
 
 const config = {
 
