@@ -16,14 +16,17 @@ const RegisterPage: React.FC = () => {
   const [busy, setBusy] = useState<boolean>(false)
 
 async function register() {
-  setBusy(true)
+
   //validation
   if (password !== confPassword) {
     return toast('Passwords do not match')
   }
-  if (email.trim() ==='' || password.trim() === '') {
+  if (email.trim() === '' || password.trim() === '') {
     return toast('Username and password are required')
   }
+
+  setBusy(true)
+
   const res = await registerUser(email, password)
   if(res) {
     toast('You have registered successfully')
