@@ -90,7 +90,7 @@ const App: React.FC = () => {
         // user is logged in
         window.history.replaceState({}, '', '/home') 
       }else {
-        window.history.replaceState({}, '', '/')
+        window.history.replaceState({}, '', '/login')
       }
       setBusy(false)
     })
