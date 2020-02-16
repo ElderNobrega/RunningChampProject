@@ -48,6 +48,7 @@ import './theme/variables.css';
 
 /* Import function from firebase config */
 import {getCurrentUser} from './components/firebaseConfig';
+import { toast } from './helperFunctions/toast';
 
 const RoutingSystem: React.FC = () => {
   return (
@@ -91,6 +92,7 @@ const App: React.FC = () => {
         window.history.replaceState({}, '', '/home') 
       }else {
         window.history.replaceState({}, '', '/login')
+        toast('Please sign in first')
       }
       setBusy(false)
     })
