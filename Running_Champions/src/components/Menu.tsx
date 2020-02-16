@@ -30,7 +30,7 @@ const appPages: AppPage[] = [
   {    title: 'Login',       url: '/page/Login',       icon: logIn    },
   {    title: 'Messages',    url: '/page/Messages',    icon: mail     },
   {    title: 'Settings',    url: '/page/Settings',    icon: settings },
-  {    title: 'About Us',    url: '/page/About',       icon: people   }
+  {    title: 'About',       url: '/page/About',       icon: people   }
 ];
 
 const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
@@ -47,7 +47,7 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={selectedPage === appPage.title ? 'selected' : ''} routerLink={appPage.url} routerDirection="forward" lines="none" detail={false}>
+                <IonItem className={selectedPage === appPage.title ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
                   <IonIcon slot="start" icon={appPage.icon} />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>

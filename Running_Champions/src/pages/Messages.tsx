@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton,
+import { IonButtons, IonContent, IonHeader, IonMenuButton,
    IonPage, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonTextarea  } from '@ionic/react';
 import React from 'react';
 
@@ -7,9 +7,6 @@ const MessagesPage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
           <IonTitle class="ion-text-center">Messages</IonTitle>
           <IonButtons slot="end">
             <IonMenuButton />

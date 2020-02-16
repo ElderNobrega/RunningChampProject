@@ -53,7 +53,7 @@ class HistoryListPage extends React.Component {
   render() {
     let items = this.runs.map(run => {
       return (
-        <IonCard key={ run.id } button routerLink={ "/details/" + run.id } onClick={(e) => console.log('details page')}>
+        <IonCard key={ run.id } button routerLink={ "/page/Details/" + run.id } onClick={(e) => console.log('details page')}>
             <IonCardHeader>
               <IonCardTitle>
                   <span className="name">{ run.name }</span>

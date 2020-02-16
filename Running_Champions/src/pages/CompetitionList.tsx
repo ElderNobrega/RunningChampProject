@@ -34,7 +34,7 @@ const CompListPage: React.FC = () => {
 
         <ListItems></ListItems>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/compNew" onClick={(e) => console.log('new competition page')}>Create</IonFabButton>
+          <IonFabButton routerLink="/page/NewCompetition" onClick={(e) => console.log('new competition page')}>Create</IonFabButton>
         </IonFab>
       </IonContent>
     </IonPage>
@@ -53,7 +53,7 @@ const ListItems = () => {
   const items = comps.map(comp => {
     count += 1;
     return (
-      <IonCard key={count} button routerLink="/competition" onClick={(e) => console.log('competition detail page')}>
+      <IonCard key={count} button routerLink="/page/CompetitionDetails" onClick={(e) => console.log('competition detail page')}>
         <IonCardHeader>
           <IonCardTitle>
             <span className="compName">{comp.compName}</span>
