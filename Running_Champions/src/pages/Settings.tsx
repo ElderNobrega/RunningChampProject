@@ -1,4 +1,4 @@
-import { IonCheckbox, IonList, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardContent, IonToggle, IonLabel, IonItem } from '@ionic/react';
+import { IonCheckbox, IonList, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardContent, IonToggle, IonLabel, IonItem } from '@ionic/react';
 import React from 'react';
 
 const SettingsPage: React.FC = () => {
@@ -6,9 +6,6 @@ const SettingsPage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
           <IonTitle class="ion-text-center">Settings</IonTitle>
           <IonButtons slot="end">
             <IonMenuButton />
