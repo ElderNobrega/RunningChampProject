@@ -3,10 +3,12 @@ import { IonBackButton,IonButtons,IonContent, IonHeader,IonMenuButton,IonPage,Io
 import React, { useState } from 'react';
 import {loginUser} from '../components/firebaseConfig';
 import {toast} from '../helperFunctions/toast';
+import { useHistory } from 'react-router';
 
 const LoginPage: React.FC = () => {
 
   const [busy, setBusy] = useState<boolean>(false)
+  const history = useHistory()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -15,6 +17,7 @@ const LoginPage: React.FC = () => {
     setBusy(true)
     const res = await loginUser(username, password)
     if (res) {
+      history.replace('/home')
       toast('you have logged in!')
     }
     setBusy(false)

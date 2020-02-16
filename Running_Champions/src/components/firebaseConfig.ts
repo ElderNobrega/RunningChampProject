@@ -1,5 +1,6 @@
 import * as fb from 'firebase'
 import {toast} from '../helperFunctions/toast';
+import { resolve } from 'dns';
 
 //var db = fb.database();
 
@@ -26,6 +27,23 @@ const config = {
 
 fb.initializeApp(config)
 //firebase.analytics();
+
+export function logOutUser() {
+    return fb.auth().signOut()
+}
+
+export function getCurrentUser() {
+    return new Promise((resolve, reject) =>{
+        const unsubscribe = fb.auth().onAuthStateChanged(function(user){
+            if (user) {
+                resolve(user)
+            } else {
+                resolve(null)
+            }
+            unsubscribe()
+        })
+    })
+}
 
 export async function loginUser(username: string, password: string) {
     // Authentication with firebase

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonSpinner } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 import Menu from './components/Menu';
@@ -46,33 +46,56 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonSplitPane contentId="main">
-        <Menu />
-        <IonRouterOutlet id="main">
-          <Route path="/home" component={Home} exact={true} />
-          <Route path="/tracking" component={Tracking} exact={true} />
-          <Route path="/history" component={History} exact={true} />
-          <Route path="/details/:id" component={Details} exact={true} />
-          <Route path="/team" component={Team} exact={true} />
-          <Route path="/competition" component={Competition} exact={true} />
-          <Route path="/compList" component={CompList} exact={true} />
-          <Route path="/compNew" component={CompNew} exact={true} />
-          <Route path="/register" component={Register} exact={true} />
-          <Route path="/login" component={Login} exact={true} />
-          <Route path="/forgot" component={ForgotPassword} exact={true} />
-          <Route path="/logout" render={() => <Redirect to="/home"/> } exact={true} />
-          <Route path="/messages" component={Messages} exact={true} />
-          <Route path="/statistics" component={Statistics} exact={true} />
-          <Route path="/settings" component={Settings} exact={true} />
-          <Route path="/about" component={About} exact={true} />
-          <Route path="/" render={() => <Redirect to="/home"/> } exact={true} />
-        </IonRouterOutlet>
-      </IonSplitPane>
-    </IonReactRouter>
-  </IonApp>
-);
+/* Import function from firebase config */
+import {getCurrentUser} from './components/firebaseConfig';
+
+const RoutingSystem: React.FC = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonSplitPane contentId="main">
+          <Menu />
+          <IonRouterOutlet id="main">
+            <Route path="/home" component={Home} exact={true} />
+            <Route path="/tracking" component={Tracking} exact={true} />
+            <Route path="/history" component={History} exact={true} />
+            <Route path="/details/:id" component={Details} exact={true} />
+            <Route path="/team" component={Team} exact={true} />
+            <Route path="/competition" component={Competition} exact={true} />
+            <Route path="/compList" component={CompList} exact={true} />
+            <Route path="/compNew" component={CompNew} exact={true} />
+            <Route path="/register" component={Register} exact={true} />
+            <Route path="/login" component={Login} exact={true} />
+            <Route path="/forgot" component={ForgotPassword} exact={true} />
+            <Route path="/logout" render={() => <Redirect to="/home"/> } exact={true} />
+            <Route path="/messages" component={Messages} exact={true} />
+            <Route path="/statistics" component={Statistics} exact={true} />
+            <Route path="/settings" component={Settings} exact={true} />
+            <Route path="/about" component={About} exact={true} />
+            <Route path="/" render={() => <Redirect to="/home"/> } exact={true} />
+          </IonRouterOutlet>
+        </IonSplitPane>
+      </IonReactRouter>
+    </IonApp>
+  )
+}
+
+const App: React.FC = () => {
+
+  const [busy, setBusy] = useState(true)
+
+  useEffect(() => {
+    getCurrentUser().then(user => {
+      if (user) {
+        // user is logged in
+        window.history.replaceState({}, '', '/home') 
+      }else {
+        window.history.replaceState({}, '', '/')
+      }
+      setBusy(false)
+    })
+  }, [])
+return <IonApp>{busy ? <IonSpinner/> : <RoutingSystem/>}</IonApp>
+};
 
 export default App;
