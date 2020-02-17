@@ -49,6 +49,8 @@ import './theme/variables.css';
 /* Import function from firebase config */
 import {getCurrentUser} from './components/firebaseConfig';
 import { toast } from './helperFunctions/toast';
+import { useDispatch } from 'react-redux';
+import { setUserState } from './redux/actions';
 
 const RoutingSystem: React.FC = () => {
   return (
@@ -84,11 +86,13 @@ const RoutingSystem: React.FC = () => {
 const App: React.FC = () => {
 
   const [busy, setBusy] = useState(true)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    getCurrentUser().then(user => {
+    getCurrentUser().then((user: any) => {
       if (user) {
         // user is logged in
+        dispatch(setUserState(user.email))
         window.history.replaceState({}, '', '/home') 
       }else {
         window.history.replaceState({}, '', '/login')

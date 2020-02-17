@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import {loginUser} from '../components/firebaseConfig';
 import {toast} from '../helperFunctions/toast';
 import { useHistory } from 'react-router';
+import { setUserState } from '../redux/actions';
+import { useDispatch } from 'react-redux';
 
 const LoginPage: React.FC = () => {
 
@@ -12,11 +14,13 @@ const LoginPage: React.FC = () => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
 
   async function login() {
     setBusy(true)
-    const res = await loginUser(username, password)
+    const res: any = await loginUser(username, password)
     if (res) {
+      dispatch(setUserState(res.user.email))
       history.replace('/home')
       toast('you have logged in!')
     }

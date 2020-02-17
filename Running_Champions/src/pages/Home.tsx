@@ -11,17 +11,23 @@ import {
   IonTitle,
   IonToolbar,
   IonFab, 
-  IonFabButton
+  IonFabButton,
+  IonLabel
   } from '@ionic/react';
 import React from 'react';
 import '../css/Home.css'; 
+import { useSelector } from 'react-redux';
 
 const HomePage: React.FC = () => {
+
+const userEmail = useSelector((state: any) => state.user.userEmail)
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
         <IonTitle class="ion-text-center home-title">Home</IonTitle>
+          <IonLabel slot="end">Hi, {userEmail}</IonLabel>
           <IonButtons slot="end">
             <IonMenuButton />
           </IonButtons>

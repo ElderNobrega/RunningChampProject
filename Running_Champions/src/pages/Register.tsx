@@ -18,6 +18,7 @@ const RegisterPage: React.FC = () => {
 async function register() {
 
   //validation
+  //TODO check for real email
   if (password !== confPassword) {
     return toast('Passwords do not match')
   }

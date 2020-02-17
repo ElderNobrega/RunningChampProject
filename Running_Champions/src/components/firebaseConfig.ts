@@ -1,6 +1,5 @@
 import * as fb from 'firebase'
 import {toast} from '../helperFunctions/toast';
-import { resolve } from 'dns';
 
 //var db = fb.database();
 
@@ -49,13 +48,11 @@ export async function loginUser(username: string, password: string) {
     // Authentication with firebase
     // if present, show home
     //if not, show error msg 
-    
     const email = `${username}`
 
     try{
         const res = await fb.auth().signInWithEmailAndPassword(email, password)
-        console.log(res)
-        return true
+        return res
     } catch (error) {
         toast(error.message)
         return false
