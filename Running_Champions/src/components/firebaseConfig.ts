@@ -76,7 +76,8 @@ export async function registerUser(eMail: string, password: string, fName: strin
                 firstName: fName,
                 lastName: lName,
                 userName: userName,
-                phoneNumber: phoneNum
+                phoneNumber: phoneNum,
+                password: password
             })
         }
 
