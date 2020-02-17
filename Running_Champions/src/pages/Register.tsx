@@ -28,9 +28,11 @@ async function register() {
 
   setBusy(true)
 
-  const res = await registerUser(email, password)
+  const res = await registerUser(email, password, fName, lName, username, phoneNum)
   if(res) {
     toast('You have registered successfully')
+  } else {
+    toast('Try again')
   }
   setBusy(false)
 }

@@ -21,6 +21,7 @@ const LoginPage: React.FC = () => {
     const res: any = await loginUser(username, password)
     if (res) {
       dispatch(setUserState(res.user.email))
+      console.log(res.user.uid)
       history.replace('/home')
       toast('you have logged in!')
     }

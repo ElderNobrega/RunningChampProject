@@ -1,7 +1,5 @@
-import * as fb from 'firebase'
+import  * as fb from 'firebase'
 import {toast} from '../helperFunctions/toast';
-
-//var db = fb.database();
 
 const config = {
 
@@ -14,6 +12,7 @@ const config = {
         https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-analytics.js"></script>
     */
+
     apiKey: "AIzaSyAgLMcPKBRwnknPS7Zefx-ZFIWGUQQwF9s",
     authDomain: "running-champions-96792.firebaseapp.com",
     databaseURL: "https://running-champions-96792.firebaseio.com",
@@ -24,8 +23,11 @@ const config = {
     measurementId: "G-X9XPTWBRMY"
 }
 
+
 fb.initializeApp(config)
 //firebase.analytics();
+
+var db = fb.firestore()
 
 export function logOutUser() {
     return fb.auth().signOut()
@@ -60,10 +62,24 @@ export async function loginUser(username: string, password: string) {
     
 }
 
-export async function registerUser(username: string, password: string) {
-    const email = `${username}`
+export async function registerUser(eMail: string, password: string, fName: string, lName: string, 
+                                   userName: string, phoneNum: string) {
+    const email = `${eMail}`
+        
     try {
         const res = await fb.auth().createUserWithEmailAndPassword(email, password)
+        if (res.user !== null) {          
+            const docRef = db.collection("User/").doc(res.user.uid)
+            docRef.set({
+                userID: res.user.uid,
+                email: eMail,
+                firstName: fName,
+                lastName: lName,
+                userName: userName,
+                phoneNumber: phoneNum
+            })
+        }
+
         console.log(res)
         return true
     } catch (error) {
