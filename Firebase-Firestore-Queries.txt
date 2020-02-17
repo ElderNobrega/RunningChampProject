@@ -1,8 +1,14 @@
-Orderby queries:
-https://cloud.google.com/firestore/docs/query-data/order-limit-data
+Structure of data in firestore
+https://firebase.google.com/docs/firestore/manage-data/structure-data?authuser=0
+
+Update and add data
+https://firebase.google.com/docs/firestore/manage-data/add-data?authuser=0
 
 Queries (getting data from firebase)
 https://cloud.google.com/firestore/docs/query-data/get-data
+
+Orderby queries:
+https://cloud.google.com/firestore/docs/query-data/order-limit-data
 
 Query data listener (real time updates)
 https://cloud.google.com/firestore/docs/query-data/listen
