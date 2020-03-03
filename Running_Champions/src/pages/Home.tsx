@@ -20,7 +20,10 @@ import { useSelector } from 'react-redux';
 
 const HomePage: React.FC = () => {
 
-const userEmail = useSelector((state: any) => state.user.userEmail)
+// undefined if not logged in
+const userEmail = useSelector((state: any) => {
+  return state !== undefined ? state.user.userEmail : undefined;
+})
 
   return (
     <IonPage>

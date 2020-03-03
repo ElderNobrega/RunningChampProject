@@ -18,7 +18,9 @@ const RegisterPage: React.FC = () => {
 async function register() {
 
   //validation
-  //TODO check for real email
+  //TODO check for valid email (regex)
+  //TODO: check if valid phone number (regex)
+
   if (password !== confPassword) {
     return toast('Passwords do not match')
   }
@@ -79,7 +81,7 @@ async function register() {
           </IonItem>
           <IonItem class='ion-margin-bottom ion-margin-top'>
             <IonLabel>Phone number:</IonLabel>
-            <IonInput type='number' onIonChange={(e: any) => setPhoneNum(e.target.value)} required></IonInput>
+            <IonInput type='text' onIonChange={(e: any) => setPhoneNum(e.target.value)} required></IonInput>
           </IonItem>
           <IonButton class='ion-margin-horizontal ion-margin-top' shape='round' onClick={register}>Create Account</IonButton>
         </form>
