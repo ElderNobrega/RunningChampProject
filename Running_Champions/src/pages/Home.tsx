@@ -20,17 +20,21 @@ import { useSelector } from 'react-redux';
 
 const HomePage: React.FC = () => {
 
-// undefined if not logged in
-const userEmail = useSelector((state: any) => {
-  return state !== undefined ? state.user.userEmail : undefined;
-})
+  // undefined if not logged in
+  const userEmail = useSelector((state: any) => {
+    return state !== undefined ? 'Hi, ' + state.user.userEmail : undefined;
+  })
+
+  const userIsLoggedIn = useSelector((state: any) => {
+    return state !== undefined;
+  });
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
         <IonTitle class="ion-text-center home-title">Home</IonTitle>
-          <IonLabel slot="end">Hi, {userEmail}</IonLabel>
+          <IonLabel slot="end">{userEmail}</IonLabel>
           <IonButtons slot="end">
             <IonMenuButton />
           </IonButtons>
@@ -49,28 +53,6 @@ const userEmail = useSelector((state: any) => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="home-card" button routerLink="/page/TeamDetails" onClick={(e) => console.log('team page')}>
-          <IonCardHeader>
-            <IonCardTitle>Team</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <p>
-              Team Content
-            </p>
-          </IonCardContent>
-        </IonCard>
-
-        <IonCard className="home-card" button routerLink="/page/CompetitionList" onClick={(e) => console.log('competition List page')}>
-          <IonCardHeader>
-            <IonCardTitle>Competitions</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <p>
-              Competition Content
-            </p>
-          </IonCardContent>
-        </IonCard>
-
         <IonCard className="home-card" button routerLink="/page/Statistics" onClick={(e) => console.log('statistics page')}>
           <IonCardHeader>
             <IonCardTitle>Statistics</IonCardTitle>
@@ -78,6 +60,28 @@ const userEmail = useSelector((state: any) => {
           <IonCardContent>
             <p>
               Statistics Content
+            </p>
+          </IonCardContent>
+        </IonCard>
+
+        <IonCard className="home-card" button routerLink="/page/TeamDetails" onClick={(e) => console.log('team page')} disabled={!userIsLoggedIn}>
+          <IonCardHeader>
+            <IonCardTitle>Team</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <p>
+              { userIsLoggedIn ? "Team Content" : "Please log in to use this feature" }
+            </p>
+          </IonCardContent>
+        </IonCard>
+
+        <IonCard className="home-card" button routerLink="/page/CompetitionList" onClick={(e) => console.log('competition List page')} disabled={!userIsLoggedIn}>
+          <IonCardHeader>
+            <IonCardTitle>Competitions</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <p>
+              { userIsLoggedIn ? "Competition Content" : "Please log in to use this feature" }
             </p>
           </IonCardContent>
         </IonCard>

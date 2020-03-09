@@ -15,29 +15,30 @@ const RegisterPage: React.FC = () => {
   const [phoneNum, setPhoneNum] = useState('')
   const [busy, setBusy] = useState<boolean>(false)
 
-async function register() {
+  async function register() {
 
-  //validation
-  //TODO check for valid email (regex)
-  //TODO: check if valid phone number (regex)
+    //validation
+    //TODO check for valid email (regex)
+    //TODO: check if valid phone number (regex)
 
-  if (password !== confPassword) {
-    return toast('Passwords do not match')
+    if (password !== confPassword) {
+      return toast('Passwords do not match')
+    }
+    if (email.trim() === '' || password.trim() === '') {
+      return toast('Username and password are required')
+    }
+
+    setBusy(true)
+
+    const res = await registerUser(email, password, fName, lName, username, phoneNum)
+    if(res) {
+      toast('You have registered successfully')
+      window.history.replaceState({}, '', '/page/Login')
+    } else {
+      toast('Try again')
+    }
+    setBusy(false)
   }
-  if (email.trim() === '' || password.trim() === '') {
-    return toast('Username and password are required')
-  }
-
-  setBusy(true)
-
-  const res = await registerUser(email, password, fName, lName, username, phoneNum)
-  if(res) {
-    toast('You have registered successfully')
-  } else {
-    toast('Try again')
-  }
-  setBusy(false)
-}
 
   return (
     <IonPage>

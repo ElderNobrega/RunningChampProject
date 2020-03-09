@@ -7,6 +7,9 @@ export default function  reducer(
     //work with state
     switch(type) {
         case 'SET_USER_STATE':
+            if (payload === undefined) {
+                return payload
+            }
             return {
                 ...state,
                 user: {

@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => {
     if (res) {
       dispatch(setUserState(res.user.email))
       console.log(res.user.uid)
-      history.replace('/home')
+      history.replace('/page/Home')
       toast('you have logged in!')
     }
     setBusy(false)
@@ -54,13 +54,14 @@ const LoginPage: React.FC = () => {
       <IonContent>
         <IonLabel class='ion-margin-horizontal'>Forgot Password?</IonLabel>
         <IonButton class="login label" routerLink="/page/ForgotPassword" onClick={(e) => console.log('forgot page')}>
-          Click here</IonButton>
+          Click here
+        </IonButton>
       
         <div>
           <IonLabel class='ion-margin-horizontal'>Need an Account?</IonLabel>
           <IonButton class="login label" routerLink="/page/Register" onClick={(e) => console.log('register page')}>
-          Register here</IonButton>
-           
+            Register here
+          </IonButton>       
         </div>
       </IonContent>
     </IonPage>
