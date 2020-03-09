@@ -48,6 +48,7 @@ class TrackingPage extends React.Component<RouteComponentProps> {
   }
   
   ionViewWillLeave() {
+    clearWatch(this.watch);
     clearInterval(this.timer);
   }
   
