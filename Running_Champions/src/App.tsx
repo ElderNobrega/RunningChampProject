@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonSpinner } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 import Menu from './components/Menu';
@@ -27,7 +27,13 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => {
+/* Import function from firebase config */
+import {getCurrentUser} from './components/firebaseConfig';
+import { toast } from './helperFunctions/toast';
+import { useDispatch } from 'react-redux';
+import { setUserState } from './redux/actions';
+
+const RoutingSystem: React.FC = () => {
  
   const [selectedPage, setSelectedPage] = useState('');  
 
@@ -37,7 +43,6 @@ const App: React.FC = () => {
         <IonSplitPane contentId="main">
           <Menu selectedPage={ selectedPage } />
           <IonRouterOutlet id="main">
-
             <Route path="/page/Home"               render={(props) => { setSelectedPage('Home'); return <Home />; }}                             exact={true} />
             <Route path="/page/Tracking"           render={(props) => { setSelectedPage('Tracking'); return <Tracking {...props} />; }}          exact={true} />
             <Route path="/page/HistoryList"        render={(props) => { setSelectedPage('HistoryList'); return <HistoryList />; }}               exact={true} />
@@ -57,12 +62,33 @@ const App: React.FC = () => {
             <Route path="/page/Logout" render={() => <Redirect to="/page/Home"/> } exact={true} />
 
             <Route path="/" render={() => <Redirect to="/page/Home" />} exact={true} />
-
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
     </IonApp>
-  );
+  )
+}
+
+const App: React.FC = () => {
+
+  const [busy, setBusy] = useState(true)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    getCurrentUser().then((user: any) => {
+      if (user) {
+        // user is logged in
+        dispatch(setUserState(user.email))
+        window.history.replaceState({}, '', '/home') 
+      }else {
+        window.history.replaceState({}, '', '/login')
+        toast('Please sign in first')
+      }
+      setBusy(false)
+    })
+  }, [dispatch])
+  
+return <IonApp>{busy ? <IonSpinner/> : <RoutingSystem/>}</IonApp>
 };
 
 export default App;

@@ -8,11 +8,15 @@ import {
   IonMenu,
   IonMenuToggle,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  IonLoading
 } from '@ionic/react';
-import React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { home, mail, logIn, settings, people } from 'ionicons/icons';
+
+import React, { useState } from 'react';
+import { RouteComponentProps, withRouter, useHistory } from 'react-router-dom';
+import { home, mail, logIn, logOut, settings, people } from 'ionicons/icons';
+import {toast} from '../helperFunctions/toast';
+import {logOutUser} from '../components/firebaseConfig';
 import '../css/Menu.css'; 
 
 interface MenuProps extends RouteComponentProps {
@@ -32,10 +36,21 @@ const appPages: AppPage[] = [
   {    title: 'Settings',    url: '/page/Settings',    icon: settings },
   {    title: 'About',       url: '/page/About',       icon: people   }
 ];
-
+        
 const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
-  
+
+  const [busy, setBusy] = useState<boolean>(false)
+  const history = useHistory()
+
+  async function logingOut() {
+    setBusy(true)
+    await logOutUser()
+    setBusy(false)
+    toast('You have logged out')
+    history.replace('/page/Home')
+}
   return (
+
     <IonMenu contentId="main" type="overlay" side="end">
       <IonHeader>
         <IonToolbar>
@@ -55,6 +70,11 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
             );
 
           })}
+          <IonLoading message='Loging out...' duration={0} isOpen={busy}/>
+          <IonItem button onClick={logingOut}>
+            <IonIcon slot='start' icon={logOut}/>
+            <IonLabel>Log out</IonLabel> 
+          </IonItem>
         </IonList>
       </IonContent>
     </IonMenu>

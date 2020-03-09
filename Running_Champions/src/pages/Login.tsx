@@ -1,21 +1,31 @@
 import { IonButtons,IonContent, IonHeader,IonMenuButton,IonPage,IonTitle, 
-        IonToolbar,IonLabel,IonItem,IonInput,IonButton} from '@ionic/react';    
+        IonToolbar,IonLabel,IonItem,IonInput,IonButton, IonLoading} from '@ionic/react';    
 import React, { useState } from 'react';
 import {loginUser} from '../components/firebaseConfig';
-import {toast} from '../components/toast';
+import {toast} from '../helperFunctions/toast';
+import { useHistory } from 'react-router';
+import { setUserState } from '../redux/actions';
+import { useDispatch } from 'react-redux';
 
 const LoginPage: React.FC = () => {
 
+  const [busy, setBusy] = useState<boolean>(false)
+  const history = useHistory()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
 
   async function login() {
-    const res = await loginUser(username, password)
-    if (!res) {
-      toast('Error loggin with your credentials')
-    } else {
+    setBusy(true)
+    const res: any = await loginUser(username, password)
+    if (res) {
+      dispatch(setUserState(res.user.email))
+      console.log(res.user.uid)
+      history.replace('/home')
       toast('you have logged in!')
     }
+    setBusy(false)
   }
   return (
     <IonPage>
@@ -27,7 +37,7 @@ const LoginPage: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
+      <IonLoading message="Please wait..." duration={0} isOpen={busy}/>
       <IonContent>
         <form>
           <IonItem class='ion-margin-bottom ion-margin-top'>
