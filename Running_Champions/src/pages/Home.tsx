@@ -38,7 +38,7 @@ const userEmail = useSelector((state: any) => {
       </IonHeader>
       <IonContent>
 
-        <IonCard className="home-card" button routerLink="/history" onClick={(e) => console.log('history page')}>
+        <IonCard className="home-card" button routerLink="/page/HistoryList" onClick={(e) => console.log('history page')}>
           <IonCardHeader>
             <IonCardTitle>History</IonCardTitle>
           </IonCardHeader>
@@ -49,7 +49,7 @@ const userEmail = useSelector((state: any) => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="home-card" button routerLink="/team" onClick={(e) => console.log('team page')}>
+        <IonCard className="home-card" button routerLink="/page/TeamDetails" onClick={(e) => console.log('team page')}>
           <IonCardHeader>
             <IonCardTitle>Team</IonCardTitle>
           </IonCardHeader>
@@ -60,7 +60,7 @@ const userEmail = useSelector((state: any) => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="home-card" button routerLink="/compList" onClick={(e) => console.log('competition List page')}>
+        <IonCard className="home-card" button routerLink="/page/CompetitionList" onClick={(e) => console.log('competition List page')}>
           <IonCardHeader>
             <IonCardTitle>Competitions</IonCardTitle>
           </IonCardHeader>
@@ -71,7 +71,7 @@ const userEmail = useSelector((state: any) => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="home-card" button routerLink="/statistics" onClick={(e) => console.log('statistics page')}>
+        <IonCard className="home-card" button routerLink="/page/Statistics" onClick={(e) => console.log('statistics page')}>
           <IonCardHeader>
             <IonCardTitle>Statistics</IonCardTitle>
           </IonCardHeader>
@@ -83,7 +83,7 @@ const userEmail = useSelector((state: any) => {
         </IonCard>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/tracking" onClick={(e) => console.log('tracking page')}>Start Run</IonFabButton>
+          <IonFabButton routerLink="/page/Tracking" onClick={(e) => console.log('tracking page')}>Start Run</IonFabButton>
         </IonFab>
 
       </IonContent>

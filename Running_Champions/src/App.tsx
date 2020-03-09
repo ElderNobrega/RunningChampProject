@@ -6,26 +6,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import Menu from './components/Menu';
 
 /* Importing each page for the router */
-import Home from './pages/Home';
-
-import Tracking from './pages/Tracking';
-import History from './pages/HistoryList';
-import Details from './pages/Details';
-
-import Team from './pages/TeamDetails';
-
-import Competition from './pages/CompetitionDetails';
-import CompList from './pages/CompetitionList';
-import CompNew from './pages/NewCompetition';
-
-import Register from './pages/Register';
-import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassword';
-
-import Messages from './pages/Messages';
-import Statistics from './pages/Statistics';
-import Settings from './pages/Settings';
-import About from './pages/About';
+import { About, CompetitionDetails, CompetitionList, Details, ForgotPassword, HistoryList, Home, Login, Messages, NewCompetition, Register, Settings, Statistics, TeamDetails, Tracking  } from './pages/Pages';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -53,29 +34,34 @@ import { useDispatch } from 'react-redux';
 import { setUserState } from './redux/actions';
 
 const RoutingSystem: React.FC = () => {
+ 
+  const [selectedPage, setSelectedPage] = useState('');  
+
   return (
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main">
-          <Menu />
+          <Menu selectedPage={ selectedPage } />
           <IonRouterOutlet id="main">
-            <Route path="/home" component={Home} exact={true} />
-            <Route path="/tracking" component={Tracking} exact={true} />
-            <Route path="/history" component={History} exact={true} />
-            <Route path="/details/:id" component={Details} exact={true} />
-            <Route path="/team" component={Team} exact={true} />
-            <Route path="/competition" component={Competition} exact={true} />
-            <Route path="/compList" component={CompList} exact={true} />
-            <Route path="/compNew" component={CompNew} exact={true} />
-            <Route path="/register" component={Register} exact={true} />
-            <Route path="/login" component={Login} exact={true} />
-            <Route path="/forgot" component={ForgotPassword} exact={true} />
-            <Route path="/logout" render={() => <Redirect to="/home"/> } exact={true} />
-            <Route path="/messages" component={Messages} exact={true} />
-            <Route path="/statistics" component={Statistics} exact={true} />
-            <Route path="/settings" component={Settings} exact={true} />
-            <Route path="/about" component={About} exact={true} />
-            <Route path="/" render={() => <Redirect to="/home"/> } exact={true} />
+            <Route path="/page/Home"               render={(props) => { setSelectedPage('Home'); return <Home />; }}                             exact={true} />
+            <Route path="/page/Tracking"           render={(props) => { setSelectedPage('Tracking'); return <Tracking {...props} />; }}          exact={true} />
+            <Route path="/page/HistoryList"        render={(props) => { setSelectedPage('HistoryList'); return <HistoryList />; }}               exact={true} />
+            <Route path="/page/Details/:id"        render={(props) => { setSelectedPage('Details'); return <Details {...props} />; }}            exact={true} />
+            <Route path="/page/TeamDetails"        render={(props) => { setSelectedPage('TeamDetails'); return <TeamDetails />; }}               exact={true} />
+            <Route path="/page/CompetitionDetails" render={(props) => { setSelectedPage('CompetitionDetails'); return <CompetitionDetails />; }} exact={true} />
+            <Route path="/page/CompetitionList"    render={(props) => { setSelectedPage('CompetitionList'); return <CompetitionList />; }}       exact={true} />
+            <Route path="/page/NewCompetition"     render={(props) => { setSelectedPage('NewCompetition'); return <NewCompetition />; }}         exact={true} />
+            <Route path="/page/Register"           render={(props) => { setSelectedPage('Register'); return <Register />; }}                     exact={true} />
+            <Route path="/page/Login"              render={(props) => { setSelectedPage('Login'); return <Login />; }}                           exact={true} />
+            <Route path="/page/ForgotPassword"     render={(props) => { setSelectedPage('ForgotPassword'); return <ForgotPassword />; }}         exact={true} />
+            <Route path="/page/Messages"           render={(props) => { setSelectedPage('Messages'); return <Messages />; }}                     exact={true} />
+            <Route path="/page/Statistics"         render={(props) => { setSelectedPage('Statistics'); return <Statistics />; }}                 exact={true} />
+            <Route path="/page/Settings"           render={(props) => { setSelectedPage('Settings'); return <Settings />; }}                     exact={true} />
+            <Route path="/page/About"              render={(props) => { setSelectedPage('About'); return <About />; }}                           exact={true} />
+
+            <Route path="/page/Logout" render={() => <Redirect to="/page/Home"/> } exact={true} />
+
+            <Route path="/" render={() => <Redirect to="/page/Home" />} exact={true} />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

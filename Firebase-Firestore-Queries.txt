@@ -1,0 +1,51 @@
+Structure of data in firestore
+https://firebase.google.com/docs/firestore/manage-data/structure-data?authuser=0
+
+Update and add data
+https://firebase.google.com/docs/firestore/manage-data/add-data?authuser=0
+
+Queries (getting data from firebase)
+https://cloud.google.com/firestore/docs/query-data/get-data
+
+Orderby queries:
+https://cloud.google.com/firestore/docs/query-data/order-limit-data
+
+Query data listener (real time updates)
+https://cloud.google.com/firestore/docs/query-data/listen
+
+Queries for filtering data (like where clause, operators < = >, compound queries)
+https://cloud.google.com/firestore/docs/query-data/queries
+
+Deleting
+https://firebase.google.com/docs/firestore/manage-data/delete-data
+
+Paginate data with query cursors
+https://firebase.google.com/docs/firestore/query-data/query-cursors
+
+Access data offline
+https://firebase.google.com/docs/firestore/manage-data/enable-offline
+
+Conditions for security rules
+https://firebase.google.com/docs/firestore/security/rules-conditions
+
+Aggregation Queries (Doind transaction, calculations... Perfect for avg speed and distance)
+https://firebase.google.com/docs/firestore/solutions/aggregation
+
+Full-text search
+https://firebase.google.com/docs/firestore/solutions/search
+
+Secure data access for users and groups (roles)
+https://firebase.google.com/docs/firestore/solutions/role-based-access
+
+Schedule data exports (call a function in a specific schedule time, maybe when competition end?)
+https://firebase.google.com/docs/firestore/solutions/schedule-export
+
+Auth State Persistence 
+https://firebase.google.com/docs/auth/web/auth-state-persistence
+
+Custom email handler (Customize email in case of resetting passwords, verifying email, etc..)
+https://firebase.google.com/docs/auth/custom-email-handler
+
+Cloud functions (sending welcome email)
+https://firebase.google.com/docs/auth/extend-with-functions
+https://firebase.google.com/docs/firestore/extend-with-functions

@@ -1,4 +1,4 @@
-import { IonBackButton,IonButtons,IonContent, IonHeader,IonMenuButton,IonPage,IonTitle, 
+import { IonButtons,IonContent, IonHeader,IonMenuButton,IonPage,IonTitle, 
         IonToolbar,IonLabel,IonItem,IonInput,IonButton, IonLoading} from '@ionic/react';    
 import React, { useState } from 'react';
 import {loginUser} from '../components/firebaseConfig';
@@ -31,9 +31,6 @@ const LoginPage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
           <IonTitle class="ion-text-center">Login</IonTitle>
           <IonButtons slot="end">
             <IonMenuButton />
@@ -56,12 +53,12 @@ const LoginPage: React.FC = () => {
       </IonContent>
       <IonContent>
         <IonLabel class='ion-margin-horizontal'>Forgot Password?</IonLabel>
-        <IonButton class="login label" routerLink="/forgot" onClick={(e) => console.log('forgot page')}>
+        <IonButton class="login label" routerLink="/page/ForgotPassword" onClick={(e) => console.log('forgot page')}>
           Click here</IonButton>
       
         <div>
           <IonLabel class='ion-margin-horizontal'>Need an Account?</IonLabel>
-          <IonButton class="login label" routerLink="/register" onClick={(e) => console.log('register page')}>
+          <IonButton class="login label" routerLink="/page/Register" onClick={(e) => console.log('register page')}>
           Register here</IonButton>
            
         </div>

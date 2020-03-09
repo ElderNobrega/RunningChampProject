@@ -48,7 +48,7 @@ class DetailsPage extends React.Component<DetailPageProps> {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/home" />
+              <IonBackButton defaultHref="/page/Home" />
             </IonButtons>
             <IonTitle class="ion-text-center">Details</IonTitle>
             <IonButtons slot="end">

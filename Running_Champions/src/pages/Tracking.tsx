@@ -89,7 +89,7 @@ class TrackingPage extends React.Component<RouteComponentProps> {
                 if (result) {
                   this.run.duration = getTime() - this.startTime;
                   this.storage.setItem(this.run.id.toString(), JSON.stringify(this.run)).then(() => {
-                    this.props.history.replace("/details/" + this.run.id);
+                    this.props.history.replace("/page/Details/" + this.run.id);
                   });
                 }
                 else {

@@ -60,7 +60,7 @@ const ListItems = () => {
   const items = teams.map(team => {
     count += 1;
     return (
-      <IonCard id="list" key={count} button routerLink="/team" onClick={(e) => console.log("teams page")}>
+      <IonCard id="list" key={count} button routerLink="/page/TeamDetails" onClick={(e) => console.log("teams page")}>
         <IonCardHeader>
           <IonCardTitle>
             <span className="comp-item-first">{team.tName}</span>
