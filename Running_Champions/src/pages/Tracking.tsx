@@ -1,4 +1,4 @@
-import { withIonLifeCycle, IonCard, IonFab, IonFabButton, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { withIonLifeCycle, IonFab, IonFabButton, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { RouteComponentProps } from 'react-router';
 import React from 'react';
 import { Plugins } from '@capacitor/core';
@@ -6,6 +6,7 @@ import { Run, Position } from '../components/classes';
 import { getTime, getDate, getFullDate, getDuration } from '../helperFunctions/Time';
 import { StorageAPIWrapper } from '../helperFunctions/localDB';
 import '../css/Tracking.css';
+import SimpleMap from '../components/SimpleMap';
 
 const { Geolocation } = Plugins;
 
@@ -67,7 +68,7 @@ class TrackingPage extends React.Component<RouteComponentProps> {
       </IonHeader>
 
       <IonContent id="tracking">
-          <IonCard className="map-placeholder">Insert Map Here</IonCard>
+          <SimpleMap />
 
           <section className="tracking-section">
             <div className="item">
