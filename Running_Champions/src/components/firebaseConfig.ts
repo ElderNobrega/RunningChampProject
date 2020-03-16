@@ -89,3 +89,22 @@ export async function registerUser(eMail: string, password: string, fName: strin
         return false
     }
 }
+
+export async function createCompetition(name: string, fee: Int32Array, compType: string, sDate: Date, 
+                                        eDate: Date, desc: string) {
+    try {
+        const res = await db.collection("Competition/").doc(name)
+        res.set({
+            name: name,
+            fee: fee,
+            competitionType: compType,
+            startDate: sDate,
+            endDate: eDate,
+            description: desc
+        })
+        return true
+    } catch (error) {
+        toast(error.message)
+        return false
+    }
+}
