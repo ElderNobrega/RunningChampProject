@@ -93,8 +93,8 @@ export async function registerUser(eMail: string, password: string, fName: strin
 export async function createCompetition(name: string, fee: Int32Array, compType: string, sDate: Date, 
                                         eDate: Date, desc: string) {
     try {
-        const res = await db.collection("Competition/").doc(name)
-        res.set({
+        const res = await db.collection("Competition/")
+        res.add({
             name: name,
             fee: fee,
             competitionType: compType,
@@ -108,3 +108,4 @@ export async function createCompetition(name: string, fee: Int32Array, compType:
         return false
     }
 }
+
