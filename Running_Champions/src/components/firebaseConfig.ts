@@ -90,8 +90,8 @@ export async function registerUser(eMail: string, password: string, fName: strin
     }
 }
 
-export async function createCompetition(name: string, fee: Int32Array, compType: string, sDate: Date, 
-                                        eDate: Date, desc: string) {
+export async function createCompetition(name: string, fee: number, compType: string, sDate: string, 
+                                        eDate: string, desc: string) {
     try {
         const res = await db.collection("Competition/")
         res.add({
