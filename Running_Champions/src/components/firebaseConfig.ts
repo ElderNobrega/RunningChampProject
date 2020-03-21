@@ -112,10 +112,10 @@ export async function createCompetition(name: string, fee: number, compType: str
 }
 
 export async function getCompetitions() {
-    const docs: Array<object> = []
-    const comps = db.collection('Competition').get().then(function(querySnapshot) {
+    const docs: Array<any> = []
+    db.collection('Competition').get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            docs.push(doc.data())
+            docs.push(doc.id, doc.data())
         })
     })
     return docs
@@ -140,5 +140,26 @@ export async function trackRun(name: string, duration: number, distance: number,
             }
         }
     })
+}
+
+export async function getRun() {
+    getCurrentUser().then((user: any) => {
+        const docs: Array<any> = []
+        if (user) {
+            try {
+                db.collection('run').doc(user.userID).collection('userRuns').get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        docs.push(doc.id, doc.data())
+                    })
+                })
+                return docs
+            } catch (error) {
+                toast(error.message)
+                return false
+            }
+        }
+    })
+    
+    
 }
 
