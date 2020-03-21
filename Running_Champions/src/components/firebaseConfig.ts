@@ -77,8 +77,7 @@ export async function registerUser(eMail: string, password: string, fName: strin
                 firstName: fName,
                 lastName: lName,
                 userName: userName,
-                phoneNumber: phoneNum,
-                password: password
+                phoneNumber: phoneNum
             })
         }
 
@@ -90,22 +89,56 @@ export async function registerUser(eMail: string, password: string, fName: strin
     }
 }
 
-export async function createCompetition(name: string, fee: number, compType: string, sDate: string, 
-                                        eDate: string, desc: string) {
+export async function createCompetition(name: string, fee: number, compType: string, minRange: number, maxRange: number, 
+                                        sDate: Date, eDate: Date, desc: string) {
     try {
         const res = await db.collection("Competition/")
         res.add({
             name: name,
             fee: fee,
             competitionType: compType,
+            minRange: minRange,
+            maxRange: maxRange,
             startDate: sDate,
             endDate: eDate,
-            description: desc
+            description: desc,
+            entrants: 0
         })
         return true
     } catch (error) {
         toast(error.message)
         return false
     }
+}
+
+export async function getCompetitions() {
+    const docs: Array<object> = []
+    const comps = db.collection('Competition').get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            docs.push(doc.data())
+        })
+    })
+    return docs
+}
+
+export async function trackRun(name: string, duration: number, distance: number, date: string) {
+    getCurrentUser().then((user: any) => {
+        //check if the user is logged and get the id
+        if (user) {
+            try {
+                const res = db.collection('run').doc(user.userID).collection('userRuns').doc(date)
+                res.set({
+                    name: name,
+                    duration: duration,
+                    distance: distance,
+                    date: date
+                })
+                return true
+            } catch (error) {
+                toast(error.message)
+                return false
+            }
+        }
+    })
 }
 
