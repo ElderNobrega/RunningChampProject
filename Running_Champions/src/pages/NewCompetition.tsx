@@ -11,18 +11,20 @@ const NewCompPage: React.FC = () => {
   const [name, setName] = useState('')
   const [fee, setFee] = useState<number>(0)
   const [compType, setCompType] = useState('')
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
   const [description, setDescription] = useState('')
+  const [minRange, setMinRange] = useState<number>(0)
+  const [maxRange, setMaxRange] = useState<number>(0)
   const [busy, setBusy] = useState<boolean>(false)
 
   async function newComp() {
 
     setBusy(true)
-    const res = await createCompetition(name, fee, compType ,startDate, endDate,description)
+    const res = await createCompetition(name, fee, compType , minRange, maxRange, startDate, endDate, description)
     if(res) {
       toast('You have created a new competition')
-      window.history.replaceState({}, '','/page/NewCompetition')
+      window.history.replaceState({}, '', '/page/CompetitionList')
     } else {
       toast('Try again')
     }
@@ -55,19 +57,29 @@ const NewCompPage: React.FC = () => {
               <IonLabel>Fee $:</IonLabel>
               <IonInput type='number' onIonChange={(e: any) => setFee(e.target.value)} required></IonInput>
             </IonItem>
-            <IonRadioGroup value={compType} onIonChange={(e: any) => setCompType(e.detail.value)}>
-              <IonListHeader>
-                <IonLabel>Competition type</IonLabel>
-              </IonListHeader>
-              <IonItem className="radio-item">
-                <IonLabel>Private</IonLabel>
-                <IonRadio value='private'></IonRadio>
-              </IonItem>
-              <IonItem className="radio-item">
-                <IonLabel>Public</IonLabel>
-                <IonRadio slot='end' value='public'></IonRadio>
-              </IonItem>
-            </IonRadioGroup>
+            <IonItem>
+              <IonRadioGroup value={compType} onIonChange={(e: any) => setCompType(e.detail.value)}>
+                <IonListHeader>
+                  <IonLabel>Competition type</IonLabel>
+                </IonListHeader>
+                <IonItem className="radio-item">
+                  <IonLabel>Private</IonLabel>
+                  <IonRadio value='private'></IonRadio>
+                </IonItem>
+                <IonItem className="radio-item">
+                  <IonLabel>Public</IonLabel>
+                  <IonRadio slot='end' value='public'></IonRadio>
+                </IonItem>
+              </IonRadioGroup>
+            </IonItem>
+            <IonItem>
+              <IonLabel>min range km:</IonLabel>
+              <IonInput type='number' onIonChange={(e: any) => setMinRange(e.target.value)} required></IonInput>
+            </IonItem> 
+            <IonItem>
+              <IonLabel>max range km:</IonLabel>
+              <IonInput type='number' onIonChange={(e: any) => setMaxRange(e.target.value)} required></IonInput>
+            </IonItem> 
             <IonItem>
               <IonLabel>Start Date:</IonLabel>
               <IonInput type='date' onIonChange={(e: any) => setStartDate(e.target.value)} required></IonInput>
@@ -78,7 +90,7 @@ const NewCompPage: React.FC = () => {
             </IonItem>
             <IonItem>
               <IonLabel>Description</IonLabel>
-              <IonInput type='text' onIonChange={(e: any) => setDescription(e.target.value)} clearInput></IonInput>
+              <IonInput type='text'  onIonChange={(e: any) => setDescription(e.target.value)} clearInput></IonInput>
             </IonItem>
           </IonList>
           <IonButton type='submit' class='--padding-start' shape='round' onClick={newComp}>Create Competition</IonButton>
