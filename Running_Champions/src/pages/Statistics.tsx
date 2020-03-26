@@ -33,6 +33,9 @@ const StatisticsPage: React.FC = () => {
           <IonRow>
             <IonCol>Longest Distance:</IonCol>  <IonCol><span> 21 </span>Km</IonCol>
           </IonRow>
+          <IonRow>
+            <IonCol>Avg Distance:</IonCol>  <IonCol><span> 12 </span>Km</IonCol>
+          </IonRow>
           
         </IonGrid>
         
