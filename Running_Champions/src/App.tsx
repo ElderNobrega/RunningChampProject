@@ -32,6 +32,104 @@ import {getCurrentUser} from './components/firebaseConfig';
 import { toast } from './helperFunctions/toast';
 import { useDispatch } from 'react-redux';
 import { setUserState } from './redux/actions';
+import { app } from 'firebase';
+
+// PayPal
+const express = require("express");
+const bodyParser = require("body-parser");
+const engines = require("consolidate");
+const paypal = require('paypal-rest-sdk');
+const aPP = express();
+aPP.engine("ejs", engines.ejs);
+aPP.set("views", "./views");
+aPP.set("view engine", "ejs");
+aPP.use(bodyParser.json());
+aPP.use(bodyParser.urlencoded({ extended: true }));
+paypal.configure({
+  mode: "sandbox", //sandbox or live
+  client_id:
+      "AW_t36R6h5RUa1-2rZZA3IS3FwrhKLVsUyV8bOA3FelHQSmQEX4voN-6j-aJ84PrAkp70zx8dNaXmexv",
+  client_secret:
+      "EKv9n-1i07CydfiWmANh2CCC6U4drmRMk0jsf6JfIBDyUvfJ8eFr4ZW5h9x6qsfqAAmvrRCY-SwGLelo"
+});
+//next code may not needed
+aPP.get("/", (req, res) => {
+  res.render("indexPP"); 
+});
+app.get("/paypal", (req, res) => {
+  var create_payment_json = {
+      intent: "sale",
+      payer: {
+          payment_method: "paypal"
+      },
+      redirect_urls: {
+          return_url: "http://localhost:3000/success",
+          cancel_url: "http://localhost:3000/cancel"
+      },
+      transactions: [
+          {
+              item_list: {
+                  items: [
+                      {
+                          name: "item",
+                          sku: "item",
+                          price: "1.00",
+                          currency: "USD",
+                          quantity: 1
+                      }
+                  ]
+              },
+              amount: {
+                  currency: "USD",
+                  total: "1.00"
+              },
+              description: "This is the payment description."
+          }
+      ]
+  };
+  paypal.payment.create(create_payment_json, function(error, payment) {
+      if (error) {
+          throw error;
+      } else {
+          console.log("Create Payment Response");
+          console.log(payment);
+          res.redirect(payment.links[1].href);
+      }
+  });
+});
+app.get("/success", (req, res) => {
+  // res.send("Success");
+  var PayerID = req.query.PayerID;
+  var paymentId = req.query.paymentId;
+  var execute_payment_json = {
+      payer_id: PayerID,
+      transactions: [
+          {
+              amount: {
+                  currency: "USD",
+                  total: "1.00"
+              }
+          }
+      ]
+  };
+  paypal.payment.execute(paymentId, execute_payment_json, function(
+      error,
+      payment
+  ) {
+      if (error) {
+          console.log(error.response);
+          throw error;
+      } else {
+          console.log("Get Payment Response");
+          console.log(JSON.stringify(payment));
+          res.render("success");
+      }
+  });
+});
+app.get("cancel", (req, res) => {
+  res.render("cancel");
+});
+
 
 const RoutingSystem: React.FC = () => {
  
