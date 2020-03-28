@@ -111,14 +111,27 @@ export async function createCompetition(name: string, fee: number, compType: str
     }
 }
 
+/* function renderComp(doc:any) {
+    //{compName: "Competition Name", fee: 10, minKm: "8", maxKm: "10", entrants: 41}
+    console.log(doc.data().name)
+    const comp = {compId: doc.id,compName: doc.data().name, fee: doc.data().fee, minKm: doc.data().minRange, maxKm: doc.data().maxRange, entrants: doc.data().entrants}
+    const comps = [{}]
+    comps.push(comp)
+    return comps
+} */
+
+//user enroll in a comp/team (true/false or comp/team id)??? => Redux 
+
 export async function getCompetitions() {
-    const docs: Array<any> = []
+    const comps: Array<any> = [{}]
     db.collection('Competition').get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            docs.push(doc.id, doc.data())
+        querySnapshot.docs.forEach(function(doc) {
+            const comp = doc.data()
+            comp["compId"] = doc.id
+            comps.push(comp)
         })
     })
-    return docs
+    return comps
 }
 
 export async function trackRun(name: string, duration: number, distance: number, date: string) {
