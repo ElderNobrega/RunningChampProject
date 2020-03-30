@@ -1,6 +1,9 @@
 import { IonCol, IonRow, IonGrid, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { IonButton } from '@ionic/react';
 import React from 'react';
+import PaypalButton from "../components/PaypalButton"
+
+
 
 const comp = {compName: "Firestorm Competition", fee: 25, 
               distance: "12km", position:"3rd", entrants: 41, 
@@ -12,6 +15,10 @@ const team = {member1: "Alan Pintor",
 
 const TeamDetailsPage: React.FC = () => {
   return (
+
+
+
+
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -58,6 +65,10 @@ const TeamDetailsPage: React.FC = () => {
               </IonRow>
             </IonGrid>
             <IonButton color="success" slot="end">Invite</IonButton>
+
+            <PaypalButton>
+
+            </PaypalButton>
 
           </IonCardContent>
         </IonCard>

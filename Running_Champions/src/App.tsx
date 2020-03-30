@@ -35,35 +35,35 @@ import { setUserState } from './redux/actions';
 import { app } from 'firebase';
 
 // !-- PayPal
-import PaypalButtons from "../views/ppButton";
+// import PaypalButtons from "../views/ppButton";
 
-class App extends Component {
-  state = {
-    showPaypal: false
-  }; 
+// class App extends Component {
+//   state = {
+//     showPaypal: false
+//   }; 
 
-  showPaypalButtons = () => {
-    this.setState({ showPaypal: true });
-  };
+//   showPaypalButtons = () => {
+//     this.setState({ showPaypal: true });
+//   };
 
-  render() {
-    const { showPaypal } = this.state;
-    if (showPaypal) {
-      return <PaypalButtons />;
-    } else {
-      return (
-        <div className="main">
-          <h2> Pay the fee to join the competition </h2>
-          {/* <img alt="image description" src={imgName} /> */}
-          <h3>
-            <b>$10</b>
-          </h3>
-          <button onClick={this.showPaypalButtons}> Pay </button>
-        </div>
-      );
-    }
-  }
-}
+//   render() {
+//     const { showPaypal } = this.state;
+//     if (showPaypal) {
+//       return <PaypalButtons />;
+//     } else {
+//       return (
+//         <div className="main">
+//           <h2> Pay the fee to join the competition </h2>
+//           {/* <img alt="image description" src={imgName} /> */}
+//           <h3>
+//             <b>$10</b>
+//           </h3>
+//           <button onClick={this.showPaypalButtons}> Pay </button>
+//         </div>
+//       );
+//     }
+//   }
+// }
 // paypal end --!
 
 const RoutingSystem: React.FC = () => {
