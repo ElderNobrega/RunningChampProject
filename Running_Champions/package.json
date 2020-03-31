@@ -22,7 +22,7 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router": "^5.1.0",
-    "react-router-dom": "^5.1.0",
+    "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "typescript": "3.6.3"
   },

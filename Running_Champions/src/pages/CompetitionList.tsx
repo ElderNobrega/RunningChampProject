@@ -8,20 +8,19 @@ import { key } from 'ionicons/icons';
 
 class CompetitionListPage extends React.Component {
   state = {count: 0};
-  comps = []
+  comps: Array<any> = []
 
   async ionViewWillEnter() {
     this.comps = []
     this.setState({count: 0})
     const comp = await getCompetitions()
     if (comp) {
-      //console.log(comp)
-      comp.forEach(key => {
-        console.log(key)
+      comp.forEach((element) => {
+        this.comps.push(element)
+        this.setState({count: this.state.count + 1 })
+        //console.log()
       })
-      /* this.comps = comp
       console.log(this.comps)
-      this.setState({count: this.state.count + comp.length -1}) */
     } else {
       console.log('Problem loading the database')
     }
@@ -40,9 +39,9 @@ class CompetitionListPage extends React.Component {
   }
 
   render() {
-    /* let items = this.comps.map(comp => {
+    let items = this.comps.map(comp => {
       return(
-        <IonCard key={comp.compId} button routerLink="/page/CompetitionDetails" onClick={(e) => console.log('competition detail page')}>
+        <IonCard key={comp.compId} button routerLink={ "/page/CompetitionDetails/" + comp.compId} onClick={(e) => console.log('competition detail page')}>
           <IonCardHeader>
             <IonCardTitle>
               <span className="compName">{comp.name}</span>
@@ -51,13 +50,13 @@ class CompetitionListPage extends React.Component {
           </IonCardHeader>
           <IonCardContent>
             <h2>
-              <span className="avgKm">({comp.minKm}km - {comp.maxKm}km)</span>
+              <span className="avgKm">({comp.minRange}km - {comp.maxRange}km)</span>
               <span className="entrants">{comp.entrants} entrants</span>
             </h2>
           </IonCardContent>
         </IonCard>
       )
-    }) */
+    }) 
     return (
       <IonPage>
         <IonHeader>
@@ -85,7 +84,7 @@ class CompetitionListPage extends React.Component {
             </IonSelect>
           </IonList>
 
-          {/* <ListItems></ListItems> */}
+          <IonList>{items}</IonList>
           <IonFab vertical="bottom" horizontal="end" slot="fixed">
             <IonFabButton routerLink="/page/NewCompetition" onClick={(e) => console.log('new competition page')}>Create</IonFabButton>
           </IonFab>
@@ -93,37 +92,6 @@ class CompetitionListPage extends React.Component {
       </IonPage>
     );
   };
-
-  /* const ListItems = () => {
-    const comps = [
-      {compName: "Competition Name", fee: 10, minKm: "8", maxKm: "10", entrants: 41},
-      {compName: "Competition Name", fee: 15, minKm: "12", maxKm: "10", entrants: 85},
-      {compName: "Competition Name", fee: 7, minKm: "4", maxKm: "10", entrants: 129},
-      {compName: "Competition Name", fee: 20, minKm: "16", maxKm: "10", entrants: 63}
-    ];
-
-    let count = 0;
-    const items = comps.map(comp => {
-      count += 1;
-      return (
-        <IonCard key={count} button routerLink="/page/CompetitionDetails" onClick={(e) => console.log('competition detail page')}>
-          <IonCardHeader>
-            <IonCardTitle>
-              <span className="compName">{comp.compName}</span>
-              <span className="fee">${comp.fee}</span>
-            </IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <h2>
-              <span className="avgKm">({comp.minKm}km - {comp.maxKm}km)</span>
-              <span className="entrants">{comp.entrants} entrants</span>
-            </h2>
-          </IonCardContent>
-        </IonCard>
-      );
-    });
-    return <IonList>{items}</IonList>;
-  } */
 }
 
 export default withIonLifeCycle(CompetitionListPage);

@@ -121,15 +121,32 @@ export async function createCompetition(name: string, fee: number, compType: str
 } */
 
 //user enroll in a comp/team (true/false or comp/team id)??? => Redux 
+export async function getCompetition(id: string) {
+    let competition: Array<any> = []
+    if (id) {
+        try {
+            var docRef = db.collection('Competition').doc(id)
+            await docRef.get().then(function(doc) {
+                if (doc.exists) {
+                    const comp = doc.data()
+                    competition.push(comp)
+                }
+            })
+        } catch {
+
+        }
+    }
+    console.log(competition)
+    return competition
+}
 
 export async function getCompetitions() {
-    const comps: Array<any> = [{}]
-    db.collection('Competition').get().then(function(querySnapshot) {
-        querySnapshot.docs.forEach(function(doc) {
-            const comp = doc.data()
-            comp["compId"] = doc.id
-            comps.push(comp)
-        })
+    const comps: Array<any> = []
+    var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection('Competition').get()
+    querySnapshot.docs.forEach(function(doc) {
+        const comp = doc.data()
+        comp["compId"] = doc.id
+        comps.push(comp)
     })
     return comps
 }
