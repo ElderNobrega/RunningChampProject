@@ -77,7 +77,10 @@ export async function registerUser(eMail: string, password: string, fName: strin
                 firstName: fName,
                 lastName: lName,
                 userName: userName,
-                phoneNumber: phoneNum
+                phoneNumber: phoneNum,
+                distance: 0,
+                runs: 0,
+                onTeam: false
             })
         }
 
@@ -92,7 +95,7 @@ export async function registerUser(eMail: string, password: string, fName: strin
 export async function createCompetition(name: string, fee: number, compType: string, minRange: number, maxRange: number, 
                                         sDate: Date, eDate: Date, desc: string) {
     try {
-        const res = await db.collection("Competition/")
+        const res = await db.collection("Competition")
         res.add({
             name: name,
             fee: fee,
@@ -111,16 +114,8 @@ export async function createCompetition(name: string, fee: number, compType: str
     }
 }
 
-/* function renderComp(doc:any) {
-    //{compName: "Competition Name", fee: 10, minKm: "8", maxKm: "10", entrants: 41}
-    console.log(doc.data().name)
-    const comp = {compId: doc.id,compName: doc.data().name, fee: doc.data().fee, minKm: doc.data().minRange, maxKm: doc.data().maxRange, entrants: doc.data().entrants}
-    const comps = [{}]
-    comps.push(comp)
-    return comps
-} */
-
 //user enroll in a comp/team (true/false or comp/team id)??? => Redux 
+
 export async function getCompetition(id: string) {
     let competition: Array<any> = []
     if (id) {
@@ -132,8 +127,9 @@ export async function getCompetition(id: string) {
                     competition.push(comp)
                 }
             })
-        } catch {
-
+        } catch (error) {
+            toast(error.message)
+            return false
         }
     }
     console.log(competition)
@@ -151,14 +147,148 @@ export async function getCompetitions() {
     return comps
 }
 
+export async function checkCaptain() {
+    let check: boolean = false
+    await getCurrentUser().then((user: any) => {
+        if (user) {
+            try {
+                db.collection("Team").where("captain", "==", user.uid).get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        if (doc.exists) {
+                            check = true
+                        } else {
+                            check = false
+                        }
+                    })
+                })
+            } catch (error) {
+                console.log(error)
+                toast(error.message)
+            }
+        } else {
+            check = false
+        }
+    })
+    return check
+}
+
+export async function checkDistPay(userID: string, minKm: number, maxKm: number) {
+    //const teams: Array<any> = []
+    let check: string = ""
+    try {
+        await db.collection("Team").where("captain", "==", userID).get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                if (doc) {
+                    const team = doc.data()
+                    //teams.push(team)
+                    if (!(team.teamAvgDistance >= minKm) && !(team.teamAvgDistance <= maxKm)) {
+                        check += "The team is not in between the minimum and maximum average range for this competition"
+                    }
+                    //Verify payments
+                   /*  var querySnapshot = db.collection("Team").doc(userID).collection("member").get()
+                    querySnapshot.forEach(function) */
+                } else {
+                    check = "There is no such a team with this captain."
+                }
+                /* if (!(teams[0].teamAvgDistance >= minKm) && !(teams[0].teamAvgDistance <= maxKm)) {
+                    check += "The team is not in between the minimum and maximum range for this competition"
+                } */
+            })
+        })
+    } catch (error) {
+        toast(error.message)
+        console.log(error)
+    }
+    return check
+}
+
+//update entrants in comp
+export async function joinComp(compID: string) {
+    let competition: Array<any> = []
+    let teamData: Array<any> = []
+    await getCurrentUser().then((user: any) => {
+        if (user && compID) {
+            try {
+                const res = db.collection("Comp_Team/").doc(user.uid)
+                var docRef = db.collection('Competition').doc(compID)
+                const teamRef = db.collection("Team").doc(user.uid)
+                const team = db.collection("Team").where("captain", "==", user.uid)
+                docRef.get().then(function(doc) {
+                if (doc.exists) {
+                    const comp = doc.data()
+                    competition.push(comp)
+                }
+            })
+                checkDistPay(user.uid, competition[0].minRange, competition[0].maxRange).then((check) => {
+                    if (check == "") {
+                        team.get().then(function(querySnapshot)  {
+                            querySnapshot.docs.forEach(function(doc) {
+                                teamData.push(doc.data()) 
+                            })
+                        })
+                        res.set({
+                            tName: teamData[0].teamName,
+                            distance: teamData[0].teamDistance,
+                            compID: compID,
+                            compRef: docRef,
+                            teamRef: teamRef
+                        })
+                    }
+                })
+            } catch {
+
+            }
+        }
+    })
+}
+
+//fix get userName => get data from Users docRef reference
+export async function createTeam(name: string) {
+    let cap: Array<any> = []
+    await getCurrentUser().then((user: any) => {
+        if (user) {
+            try {
+                const docRef = db.collection("User").doc(user.uid)
+                docRef.get().then(function(doc) {
+                    cap.push(doc.data())
+                })
+                if (!cap[0].onTeam) {
+                const username = cap[0].userName
+                const res = db.collection("Team")
+                res.add({
+                    teamName: name,
+                    captain: user.uid,
+                    username: {
+                                userId: user.uid,
+                                distance: cap[0].distance / cap[0].runs,
+                                payment: false,
+                                docRef: docRef,
+                            },
+                    teamAvgDistance: cap[0].distance / cap[0].runs,
+                    onComp: false
+                })
+                docRef.update({
+                    onTeam: true
+                })
+            }
+            } catch (error) {
+                toast(error.message)
+                console.log(error)
+            }
+        }
+    })
+}
+
 export async function trackRun(name: string, duration: number, distance: number, date: string) {
     getCurrentUser().then((user: any) => {
         //check if the user is logged and get the id
         if (user) {
             try {
-                const res = db.collection('run').doc(user.userID).collection('userRuns').doc(date)
+                const res = db.collection('run').doc(user.uid).collection('userRuns').doc(date)
                 res.set({
-                    name: name,
+                    teamName: name,
                     duration: duration,
                     distance: distance,
                     date: date
@@ -172,12 +302,12 @@ export async function trackRun(name: string, duration: number, distance: number,
     })
 }
 
-export async function getRun() {
+export async function getRuns() {
     getCurrentUser().then((user: any) => {
         const docs: Array<any> = []
         if (user) {
             try {
-                db.collection('run').doc(user.userID).collection('userRuns').get().then(function(querySnapshot) {
+                db.collection('run').doc(user.uid).collection('userRuns').get().then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
                         docs.push(doc.id, doc.data())
                     })
