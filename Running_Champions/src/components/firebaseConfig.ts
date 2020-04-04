@@ -155,7 +155,7 @@ export async function checkCaptain() {
                 db.collection("Team").where("captain", "==", user.uid).get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
-                        if (doc.exists) {
+                        if (doc.exists && doc.data().onComp == false) {
                             check = true
                         } else {
                             check = false
@@ -244,7 +244,6 @@ export async function joinComp(compID: string) {
     })
 }
 
-//fix get userName => get data from Users docRef reference
 export async function createTeam(name: string) {
     let cap: Array<any> = []
     await getCurrentUser().then((user: any) => {
@@ -260,12 +259,12 @@ export async function createTeam(name: string) {
                 res.add({
                     teamName: name,
                     captain: user.uid,
-                    username: {
+                    member: username.add({
                                 userId: user.uid,
                                 distance: cap[0].distance / cap[0].runs,
                                 payment: false,
                                 docRef: docRef,
-                            },
+                            }),
                     teamAvgDistance: cap[0].distance / cap[0].runs,
                     onComp: false
                 })
@@ -277,8 +276,23 @@ export async function createTeam(name: string) {
                 toast(error.message)
                 console.log(error)
             }
+            return true
+        } else {
+            return false
         }
     })
+    return false
+}
+
+export async function getTeams(compId: string) {
+    const teams: Array<any> = []
+    var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection('Comp_Team').where("compID", "==", compId).orderBy("distance","desc").get()
+    querySnapshot.docs.forEach(function(doc) {
+        const team = doc.data()
+        team["teamId"] = doc.id
+        teams.push(team)
+    })
+    return teams
 }
 
 export async function trackRun(name: string, duration: number, distance: number, date: string) {

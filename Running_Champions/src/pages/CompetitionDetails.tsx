@@ -3,7 +3,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPag
 import React from 'react';
 import '../css/CompDetail.css';
 import { RouteComponentProps } from 'react-router';
-import { getCompetition } from '../components/firebaseConfig';
+import { getCompetition, getTeams } from '../components/firebaseConfig';
 
 interface CompDetailProps extends RouteComponentProps<{
   id: string;
@@ -11,16 +11,24 @@ interface CompDetailProps extends RouteComponentProps<{
 
 class CompDetailsPage extends React.Component<CompDetailProps> {
   state = {isFetching: true}
+  count = {num: 0}
   competition: Array<any> = []
+  teams: Array<any> = []
 
   async ionViewWillEnter() {
     console.log("This is ion view will enter")
     const comp = await getCompetition(this.props.match.params.id)
-    if (comp) {
+    const team = await getTeams(this.props.match.params.id)
+    if (comp && team) {
       this.competition = comp
+      team.forEach((element) => {
+        this.teams.push(element)
+        this.setState({count: this.count.num + 1})
+      })
       this.setState({isFetching: false})
     }
     console.log(this.competition)
+    console.log(this.teams)
   }
 
   ionViewWillLeave() {
@@ -36,6 +44,19 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
   }
 
   render() {
+    let items = this.teams.map((team) => {
+      return (
+        <IonCard id="list" key={team.teamId} button routerLink={"/page/TeamDetails/" + team.teamId} onClick={(e) => console.log("teams page")}>
+        <IonCardHeader>
+          <IonCardTitle>
+            <span className="comp-item-first">{team.tName}</span>
+            <span className="comp-item-list">{team.distance } km</span>
+            <span className="comp-item-list">1</span>
+          </IonCardTitle>
+        </IonCardHeader>
+      </IonCard>
+      )
+    })
     return (
       <IonPage>
         <IonHeader>
@@ -73,11 +94,14 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
               <span>{this.state.isFetching ? "" : (this.competition[0].description)}</span>
             </div>
           </section>
+        <IonList>{items}</IonList>
         </IonContent>
       </IonPage>
     )
   }
 }
+
+
 
 /* const ListItems = () => {
   const teams = [

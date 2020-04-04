@@ -1,6 +1,7 @@
-import { IonCol, IonRow, IonGrid, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCol, IonRow, IonGrid, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem, IonLabel, IonInput } from '@ionic/react';
 import { IonButton } from '@ionic/react';
-import React from 'react';
+import React, { useState } from 'react';
+import { RouteComponentProps } from 'react-router';
 
 const comp = {compName: "Firestorm Competition", fee: 25, 
               distance: "12km", position:"3rd", entrants: 41, 
@@ -10,7 +11,13 @@ const team = {member1: "Alan Pintor",
               member3: "Elder Guerra",
               member4: "Robert Slezak"}
 
-const TeamDetailsPage: React.FC = () => {
+interface TeamDetailProps extends RouteComponentProps<{
+  id: string;
+}>{}
+
+class TeamDetailsPage extends React.Component<TeamDetailProps> {
+
+  render() {
   return (
     <IonPage>
       <IonHeader>
@@ -57,13 +64,12 @@ const TeamDetailsPage: React.FC = () => {
                 <IonCol><span>{team.member4}</span></IonCol>  <IonCol><span> 2 </span>Km/h</IonCol>
               </IonRow>
             </IonGrid>
-            <IonButton color="success" slot="end">Invite</IonButton>
-
           </IonCardContent>
         </IonCard>
       </IonContent>
     </IonPage>
   );
-};
+}
+}
 
 export default TeamDetailsPage;
