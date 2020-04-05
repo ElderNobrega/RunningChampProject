@@ -24,6 +24,9 @@ class CompetitionListPage extends React.Component {
     } else {
       console.log('Problem loading the database')
     }
+
+    
+
   }
 
   ionViewWillLeave() {

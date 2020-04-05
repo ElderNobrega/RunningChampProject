@@ -186,8 +186,8 @@ export async function checkDistPay(userID: string, minKm: number, maxKm: number)
                     if (!(team.teamAvgDistance >= minKm) && !(team.teamAvgDistance <= maxKm)) {
                         check += "The team is not in between the minimum and maximum average range for this competition"
                     }
-                    //Verify payments
-                   /*  var querySnapshot = db.collection("Team").doc(userID).collection("member").get()
+                    //Verify paymentsSS
+                    /* var querySnapshot = db.collection("Team").doc(userID).collection("member").get()
                     querySnapshot.forEach(function) */
                 } else {
                     check = "There is no such a team with this captain."
@@ -204,7 +204,7 @@ export async function checkDistPay(userID: string, minKm: number, maxKm: number)
     return check
 }
 
-//update entrants in comp
+//TODO - update entrants in comp
 export async function joinComp(compID: string) {
     let competition: Array<any> = []
     let teamData: Array<any> = []
@@ -220,7 +220,7 @@ export async function joinComp(compID: string) {
                     const comp = doc.data()
                     competition.push(comp)
                 }
-            })
+                })
                 checkDistPay(user.uid, competition[0].minRange, competition[0].maxRange).then((check) => {
                     if (check == "") {
                         team.get().then(function(querySnapshot)  {
@@ -295,6 +295,26 @@ export async function getTeams(compId: string) {
     return teams
 }
 
+export async function getTeam() {
+    let team: Array<any> = []
+    getCurrentUser().then((user: any) => {
+    if (user) {
+        try {
+            db.collection('Team').where("userId", "==", user.uid).get()
+            .then(function(querySnapshot) {
+                querySnapshot.docs.forEach(function(doc) {
+                    team.push(doc.data())
+                })
+            })
+        } catch (error) {
+            toast(error.message)
+        }
+    }
+    console.log(team)
+    return team
+    })
+}
+
 export async function trackRun(name: string, duration: number, distance: number, date: string) {
     getCurrentUser().then((user: any) => {
         //check if the user is logged and get the id
@@ -336,4 +356,6 @@ export async function getRuns() {
     
     
 }
+
+
 
