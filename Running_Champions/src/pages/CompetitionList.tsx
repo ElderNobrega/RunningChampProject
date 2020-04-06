@@ -53,7 +53,13 @@ class CompetitionListPage extends React.Component {
           </IonCardHeader>
           <IonCardContent>
             <h2>
+              <span className="start-date">Start date: {comp.startDate}</span>
               <span className="avgKm">({comp.minRange}km - {comp.maxRange}km)</span>
+            </h2>
+          </IonCardContent>
+          <IonCardContent>
+            <h2>
+              <span className="end-date">End date: {comp.endDate}</span>
               <span className="entrants">{comp.entrants} entrants</span>
             </h2>
           </IonCardContent>
@@ -84,7 +90,7 @@ class CompetitionListPage extends React.Component {
               <IonSelectOption value='eligible'>Eligible</IonSelectOption>
               <IonSelectOption value='signed-up'>Signed up</IonSelectOption>
               <IonSelectOption value='runningComp'>Running competitions</IonSelectOption>
-            </IonSelect>
+            </IonSelect>    
           </IonList>
 
           <IonList>{items}</IonList>

@@ -35,7 +35,7 @@ const RegisterPage: React.FC = () => {
     const res = await registerUser(email, password, fName, lName, username, phoneNum)
     if(res) {
       toast('You have registered successfully. Please verify your email')
-      history.replace('/page/Home')
+      history.replace('/page/Login')
     } 
     setBusy(false)
   }
