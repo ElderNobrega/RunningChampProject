@@ -248,39 +248,34 @@ export async function joinComp(compID: string) {
 }
 
 export async function createTeam(name: string) {
-    let cap: Array<any> = []
     var check = false
     var user: any = await getCurrentUser()
     if (user) {
         try {
             const docRef = db.collection("User").doc(user.uid)
-            await docRef.get().then(function(doc) {
-                cap.push(doc.data())
-                if (!cap[0].onTeam) {
-                    const username = user.uid
-                    const res = db.collection("Team")
-                    res.add({
-                        teamName: name,
-                        captain: user.uid,
-                        member: {[username]: {
-                                    userId: user.uid,
-                                    distance: 0,
-                                    payment: false,
-                                    uName: cap[0].userName
-                                }},
-                        teamAvgDistance: cap[0].distance / cap[0].runs,
-                        competitionId: ''
-                    })
-                    docRef.update({
-                        onTeam: true
-                    })
-                }
-            })
+            var doc: any = await (await docRef.get()).data()
+                const username = user.uid
+                const res = db.collection("Team")
+                var teamRef = await res.add({
+                    teamName: name,
+                    captain: user.uid,
+                    member: {[username]: {
+                                userId: user.uid,
+                                distance: 0,
+                                payment: false,
+                                uName: doc.userName
+                            }},
+                    teamAvgDistance: doc.distance / doc.runs,
+                    competitionId: ''
+                })
+                docRef.update({
+                    onTeam: teamRef.id
+                })
+            check = true
         } catch (error) {
             toast(error.message)
             console.log(error)
         }
-        check = true
     }
     return check
 }
