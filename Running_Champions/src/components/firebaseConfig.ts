@@ -235,6 +235,9 @@ export async function joinComp(compID: string) {
                             compRef: docRef,
                             teamRef: teamRef
                         })
+                        teamRef.update({
+                            competitionId: compID
+                        })
                     }
                 })
             } catch {
@@ -246,42 +249,40 @@ export async function joinComp(compID: string) {
 
 export async function createTeam(name: string) {
     let cap: Array<any> = []
-    await getCurrentUser().then((user: any) => {
-        if (user) {
-            try {
-                const docRef = db.collection("User").doc(user.uid)
-                docRef.get().then(function(doc) {
-                    cap.push(doc.data())
-                })
+    var check = false
+    var user: any = await getCurrentUser()
+    if (user) {
+        try {
+            const docRef = db.collection("User").doc(user.uid)
+            await docRef.get().then(function(doc) {
+                cap.push(doc.data())
                 if (!cap[0].onTeam) {
-                const username = cap[0].userName
-                const res = db.collection("Team")
-                res.add({
-                    teamName: name,
-                    captain: user.uid,
-                    member: username.add({
-                                userId: user.uid,
-                                distance: cap[0].distance / cap[0].runs,
-                                payment: false,
-                                docRef: docRef,
-                            }),
-                    teamAvgDistance: cap[0].distance / cap[0].runs,
-                    onComp: false
-                })
-                docRef.update({
-                    onTeam: true
-                })
-            }
-            } catch (error) {
-                toast(error.message)
-                console.log(error)
-            }
-            return true
-        } else {
-            return false
+                    const username = user.uid
+                    const res = db.collection("Team")
+                    res.add({
+                        teamName: name,
+                        captain: user.uid,
+                        member: {[username]: {
+                                    userId: user.uid,
+                                    distance: 0,
+                                    payment: false,
+                                    uName: cap[0].userName
+                                }},
+                        teamAvgDistance: cap[0].distance / cap[0].runs,
+                        competitionId: ''
+                    })
+                    docRef.update({
+                        onTeam: true
+                    })
+                }
+            })
+        } catch (error) {
+            toast(error.message)
+            console.log(error)
         }
-    })
-    return false
+        check = true
+    }
+    return check
 }
 
 export async function getTeams(compId: string) {
