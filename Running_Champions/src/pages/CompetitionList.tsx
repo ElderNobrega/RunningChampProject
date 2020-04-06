@@ -89,7 +89,7 @@ class CompetitionListPage extends React.Component {
               <IonSelectOption value='all'>All</IonSelectOption>
               <IonSelectOption value='eligible'>Eligible</IonSelectOption>
               <IonSelectOption value='signed-up'>Signed up</IonSelectOption>
-              <IonSelectOption value='runningComp'>Running competitions</IonSelectOption>
+              <IonSelectOption value='activeComp'>Active competitions</IonSelectOption>
             </IonSelect>    
           </IonList>
 
