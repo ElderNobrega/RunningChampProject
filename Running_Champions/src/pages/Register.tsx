@@ -34,9 +34,7 @@ const RegisterPage: React.FC = () => {
     if(res) {
       toast('You have registered successfully')
       window.history.replaceState({}, '', '/page/Login')
-    } else {
-      toast('Try again')
-    }
+    } 
     setBusy(false)
   }
 

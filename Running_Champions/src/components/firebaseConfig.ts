@@ -88,6 +88,20 @@ export async function registerUser(eMail: string, password: string, fName: strin
         return true
     } catch (error) {
         toast(error.message)
+        console.log(error.message)
+        return false
+    }
+}
+
+export async function passwordReset(email: string) {
+    var auth = fb.auth()
+    var email = email
+
+    try {
+        return auth.sendPasswordResetEmail(email)
+    } catch (error) {
+        console.log(error.message)
+        toast(error.message)
         return false
     }
 }
