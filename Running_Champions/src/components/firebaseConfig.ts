@@ -80,7 +80,7 @@ export async function registerUser(eMail: string, password: string, fName: strin
                 phoneNumber: phoneNum,
                 distance: 0,
                 runs: 0,
-                onTeam: false
+                currentTeam: ""
             })
         }
 
@@ -269,7 +269,7 @@ export async function createTeam(name: string) {
                     competitionId: ''
                 })
                 docRef.update({
-                    onTeam: teamRef.id
+                    currentTeam: teamRef.id
                 })
             check = true
         } catch (error) {
