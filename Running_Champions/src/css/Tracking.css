@@ -19,11 +19,3 @@
 #tracking .item-data ion-button {
     padding: 0 5px;
 }
-
-#tracking .map-placeholder {
-    width: 100%;
-    left: 0;
-    margin: 0;
-    height: 75%;
-    border: 2px solid black;
-}

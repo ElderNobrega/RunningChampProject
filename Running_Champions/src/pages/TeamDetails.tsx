@@ -1,5 +1,6 @@
 import { IonCol, IonRow, IonGrid, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem, IonLabel, IonInput } from '@ionic/react';
 import { IonButton } from '@ionic/react';
+import PaypalButton from "../components/PaypalButton"
 import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -19,6 +20,10 @@ class TeamDetailsPage extends React.Component<TeamDetailProps> {
 
   render() {
   return (
+
+
+
+
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -64,6 +69,10 @@ class TeamDetailsPage extends React.Component<TeamDetailProps> {
                 <IonCol><span>{team.member4}</span></IonCol>  <IonCol><span> 2 </span>Km/h</IonCol>
               </IonRow>
             </IonGrid>
+            <IonButton color="success" slot="end">Invite</IonButton>
+
+            <PaypalButton>
+            </PaypalButton>
           </IonCardContent>
         </IonCard>
       </IonContent>
