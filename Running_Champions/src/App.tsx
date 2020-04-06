@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonSplitPane, IonSpinner } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
@@ -32,6 +32,39 @@ import {getCurrentUser} from './components/firebaseConfig';
 import { toast } from './helperFunctions/toast';
 import { useDispatch } from 'react-redux';
 import { setUserState } from './redux/actions';
+import { app } from 'firebase';
+
+// !-- PayPal
+// import PaypalButtons from "../views/ppButton";
+
+// class App extends Component {
+//   state = {
+//     showPaypal: false
+//   }; 
+
+//   showPaypalButtons = () => {
+//     this.setState({ showPaypal: true });
+//   };
+
+//   render() {
+//     const { showPaypal } = this.state;
+//     if (showPaypal) {
+//       return <PaypalButtons />;
+//     } else {
+//       return (
+//         <div className="main">
+//           <h2> Pay the fee to join the competition </h2>
+//           {/* <img alt="image description" src={imgName} /> */}
+//           <h3>
+//             <b>$10</b>
+//           </h3>
+//           <button onClick={this.showPaypalButtons}> Pay </button>
+//         </div>
+//       );
+//     }
+//   }
+// }
+// paypal end --!
 
 const RoutingSystem: React.FC = () => {
  
