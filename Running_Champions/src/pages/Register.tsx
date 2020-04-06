@@ -2,6 +2,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader,
    IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem,
    IonLabel,IonInput,IonButton, IonLoading } from '@ionic/react';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { toast } from '../helperFunctions/toast';
 import {registerUser} from '../components/firebaseConfig'
 
@@ -14,6 +15,7 @@ const RegisterPage: React.FC = () => {
   const [confPassword, setConfPassword] = useState('')
   const [phoneNum, setPhoneNum] = useState('')
   const [busy, setBusy] = useState<boolean>(false)
+  const history = useHistory()
 
   async function register() {
 
@@ -32,8 +34,8 @@ const RegisterPage: React.FC = () => {
 
     const res = await registerUser(email, password, fName, lName, username, phoneNum)
     if(res) {
-      toast('You have registered successfully')
-      window.history.replaceState({}, '', '/page/Login')
+      toast('You have registered successfully. Please verify your email')
+      history.replace('/page/Home')
     } 
     setBusy(false)
   }

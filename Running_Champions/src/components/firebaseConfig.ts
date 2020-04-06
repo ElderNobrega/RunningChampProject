@@ -54,10 +54,16 @@ export async function loginUser(username: string, password: string) {
     const pass = `${password}`
 
     try{
-        const res = await fb.auth().signInWithEmailAndPassword(email, pass)
-        return res
+        const res = await fb.auth().signInWithEmailAndPassword(email, pass)   
+        if (res.user!.emailVerified) {
+            return res
+        } 
+        else {
+            toast('you must verify your email')
+        }
     } catch (error) {
         toast(error.message)
+        console.log(error.message)
         return false
     }
     
@@ -82,6 +88,13 @@ export async function registerUser(eMail: string, password: string, fName: strin
                 runs: 0,
                 currentTeam: ""
             })
+            var user = fb.auth().currentUser;
+
+            user!.sendEmailVerification().then(function() {
+            // Email sent.
+            }).catch(function(error) {
+                console.log(error)
+            });
         }
 
         console.log(res)

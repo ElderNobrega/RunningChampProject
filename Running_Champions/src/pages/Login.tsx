@@ -21,9 +21,11 @@ const LoginPage: React.FC = () => {
     const res: any = await loginUser(username, password)
     if (res) {
       dispatch(setUserState(res.user.email))
-      console.log(res.user.uid)
+      console.log(res.user)
       history.replace('/page/Home')
       toast('you have logged in!')
+    } else {
+      history.replace('/page/Login')
     }
     setBusy(false)
   }
