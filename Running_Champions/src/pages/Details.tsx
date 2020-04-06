@@ -1,9 +1,10 @@
-import { withIonLifeCycle, IonCard, IonCardContent, IonButton, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { withIonLifeCycle, IonButton, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Run, Position } from '../components/classes';
 import { StorageAPIWrapper } from '../helperFunctions/localDB';
 import '../css/Details.css';
+import SimpleMap from '../components/SimpleMap';
 
 interface DetailPageProps extends RouteComponentProps<{
   id: string;
@@ -80,11 +81,7 @@ class DetailsPage extends React.Component<DetailPageProps> {
               </div>
             </section>
             
-            <IonCard className="map-placeholder" id="map">          
-              <IonCardContent>
-                { this.state.isFetching ? "Insert Map Here": this.getPositions() }
-              </IonCardContent>
-            </IonCard>
+            <SimpleMap />
         </IonContent>
       </IonPage>
     );
