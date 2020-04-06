@@ -1,53 +1,109 @@
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard,
-        IonCardTitle, IonCardHeader, IonList} from '@ionic/react';
+        IonCardTitle, IonCardHeader, IonList, withIonLifeCycle} from '@ionic/react';
 import React from 'react';
 import '../css/CompDetail.css';
+import { RouteComponentProps } from 'react-router';
+import { getCompetition, getTeams } from '../components/firebaseConfig';
 
-const CompDetailsPage: React.FC = () => {
-  const comp = {compName: "Competition Name", fee: 10, avgKm: "(8km - 10km)", entrants: 41, startDate: "02/31/2020", endDate: "03/31/2020"}
+interface CompDetailProps extends RouteComponentProps<{
+  id: string;
+}>{}
 
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
-          <IonTitle class="ion-text-center">Competition Details</IonTitle>
-          <IonButtons slot="end">
-            <IonMenuButton />
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
+class CompDetailsPage extends React.Component<CompDetailProps> {
+  state = {isFetching: true}
+  count = {num: 0}
+  competition: Array<any> = []
+  teams: Array<any> = []
 
-      <IonContent id="compDetail">
-        <section>
-          <div className="comp-detail">
-            <span>{comp.compName}</span>
-            <span className="fee">${comp.fee}</span>
-          </div>
-          <div className="comp-detail">
-              <span>{comp.avgKm}</span>
-              <span className="entrants">{comp.entrants} entrants</span>
-          </div>
-          <div className="comp-detail">
-            <span className="comp-item">Start: </span>
-            <span>{comp.startDate}</span>
-          </div>
-          <div className="comp-detail">
-            <span className="comp-item">End: </span>
-            <span>{comp.endDate}</span>
-          </div>
-        </section>
-        <ListItems></ListItems>
-      </IonContent>
-      
-    </IonPage>
-    
-  );
-};
+  async ionViewWillEnter() {
+    console.log("This is ion view will enter")
+    const comp = await getCompetition(this.props.match.params.id)
+    const team = await getTeams(this.props.match.params.id)
+    if (comp && team) {
+      this.competition = comp
+      team.forEach((element) => {
+        this.teams.push(element)
+        this.setState({count: this.count.num + 1})
+      })
+      this.setState({isFetching: false})
+    }
+    console.log(this.competition)
+    console.log(this.teams)
+  }
 
-const ListItems = () => {
+  ionViewWillLeave() {
+    console.log('ionViewWillLeave event fired')
+  }
+  
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter event fired');
+  }
+  
+  ionViewDidLeave() {
+    console.log('ionViewDidLeave event fired')
+  }
+
+  render() {
+    let items = this.teams.map((team) => {
+      return (
+        <IonCard id="list" key={team.teamId} button routerLink={"/page/TeamDetails/" + team.teamId} onClick={(e) => console.log("teams page")}>
+        <IonCardHeader>
+          <IonCardTitle>
+            <span className="comp-item-first">{team.tName}</span>
+            <span className="comp-item-list">{team.distance } km</span>
+            <span className="comp-item-list">1</span>
+          </IonCardTitle>
+        </IonCardHeader>
+      </IonCard>
+      )
+    })
+    return (
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton />
+            </IonButtons>
+            <IonTitle class="ion-text-center">Competition Details</IonTitle>
+            <IonButtons slot="end">
+              <IonMenuButton />
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+
+        <IonContent id="compDetail">
+          <section>
+            <div className="comp-detail">
+              <span>{this.state.isFetching ? "" : (this.competition[0].name)}</span>
+              <span className="fee">${this.state.isFetching ? "" : (this.competition[0].fee)}</span>
+            </div>
+            <div className="comp-detail">
+              <span>({this.state.isFetching ? "" : (this.competition[0].minRange)}km - {this.state.isFetching ? "" : (this.competition[0].maxRange)})</span>
+              <span className="entrants">{this.state.isFetching ? "" : (this.competition[0].entrants)} entrants</span>
+            </div>
+            <div className="comp-detail">
+              <span className="comp-item">Start: </span>
+              <span>{this.state.isFetching ? "" : (this.competition[0].startDate)}</span>
+            </div>
+            <div className="comp-detail">
+              <span className="comp-item">End: </span>
+              <span>{this.state.isFetching ? "" : (this.competition[0].endDate)}</span>
+            </div>
+            <div className='comp-detail'>
+              <span className='comp-item'>Description: </span>
+              <span>{this.state.isFetching ? "" : (this.competition[0].description)}</span>
+            </div>
+          </section>
+        <IonList>{items}</IonList>
+        </IonContent>
+      </IonPage>
+    )
+  }
+}
+
+
+
+/* const ListItems = () => {
   const teams = [
     {tName: "Team First", distance: 30.0, place: "1st"},
     {tName: "Team Win", distance: 25.0, place: "2nd"},
@@ -73,5 +129,5 @@ const ListItems = () => {
   })
   return <IonList>{items}</IonList>;
 }
-
-export default CompDetailsPage;
+ */
+export default withIonLifeCycle(CompDetailsPage);
