@@ -1,7 +1,7 @@
-import { IonCol, IonRow, IonGrid, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonItem, IonLabel, IonInput } from '@ionic/react';
+import { IonCol, IonRow, IonGrid, IonCardTitle, IonCardHeader, IonCardContent, IonCard, IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, withIonLifeCycle } from '@ionic/react';
 import { IonButton } from '@ionic/react';
 import PaypalButton from "../components/PaypalButton"
-import React, { useState } from 'react';
+import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
 const comp = {compName: "Firestorm Competition", fee: 25, 
@@ -18,12 +18,14 @@ interface TeamDetailProps extends RouteComponentProps<{
 
 class TeamDetailsPage extends React.Component<TeamDetailProps> {
 
+  
+
+  ionViewWillLoad() {
+
+  }
+
   render() {
   return (
-
-
-
-
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -81,4 +83,4 @@ class TeamDetailsPage extends React.Component<TeamDetailProps> {
 }
 }
 
-export default TeamDetailsPage;
+export default withIonLifeCycle(TeamDetailsPage);

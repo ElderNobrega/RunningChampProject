@@ -155,7 +155,7 @@ export async function checkCaptain() {
                 db.collection("Team").where("captain", "==", user.uid).get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
-                        if (doc.exists && doc.data().onComp == false) {
+                        if (doc.exists && doc.data().onComp === false) {
                             check = true
                         } else {
                             check = false
@@ -222,7 +222,7 @@ export async function joinComp(compID: string) {
                 }
                 })
                 checkDistPay(user.uid, competition[0].minRange, competition[0].maxRange).then((check) => {
-                    if (check == "") {
+                    if (check === "") {
                         team.get().then(function(querySnapshot)  {
                             querySnapshot.docs.forEach(function(doc) {
                                 teamData.push(doc.data()) 
@@ -248,30 +248,30 @@ export async function joinComp(compID: string) {
 }
 
 export async function createTeam(name: string) {
-    var check = false
+    var check = ''
     var user: any = await getCurrentUser()
     if (user) {
         try {
             const docRef = db.collection("User").doc(user.uid)
             var doc: any = await (await docRef.get()).data()
-                const username = user.uid
-                const res = db.collection("Team")
-                var teamRef = await res.add({
-                    teamName: name,
-                    captain: user.uid,
-                    member: {[username]: {
-                                userId: user.uid,
-                                distance: 0,
-                                payment: false,
-                                uName: doc.userName
-                            }},
-                    teamAvgDistance: doc.distance / doc.runs,
-                    competitionId: ''
-                })
-                docRef.update({
-                    currentTeam: teamRef.id
-                })
-            check = true
+            const username = user.uid
+            const res = db.collection("Team")
+            var teamRef = await res.add({
+                teamName: name,
+                captain: user.uid,
+                member: {[username]: {
+                            userId: user.uid,
+                            distance: 0,
+                            payment: false,
+                            uName: doc.userName
+                        }},
+                teamAvgDistance: doc.distance / doc.runs,
+                competitionId: ''
+            })
+            docRef.update({
+                currentTeam: teamRef.id
+            })
+            check = teamRef.id
         } catch (error) {
             toast(error.message)
             console.log(error)
@@ -348,10 +348,25 @@ export async function getRuns() {
                 return false
             }
         }
-    })
-    
+    })    
     
 }
 
+export async function getCurrentTeam() {
+  const user: any = await getCurrentUser();
+  if (user) {
+    const docRef = db.collection("User").doc(user.uid);
+    const doc: any = await (await docRef.get()).data();
+    if (doc.currentTeam !== '') {
+      const teamRef = db.collection('Team').doc(doc.currentTeam);
+      const team = await (await teamRef.get()).data();
+      if(team) {
+          team["id"] = doc.currentTeam;
+      }
+      return team;
+    }
+  }
+  return undefined;
+}
 
 

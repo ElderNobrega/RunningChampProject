@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonSplitPane, IonSpinner } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
@@ -32,7 +32,7 @@ import {getCurrentUser} from './components/firebaseConfig';
 import { toast } from './helperFunctions/toast';
 import { useDispatch } from 'react-redux';
 import { setUserState } from './redux/actions';
-import { app } from 'firebase';
+//import { app } from 'firebase';
 
 // !-- PayPal
 // import PaypalButtons from "../views/ppButton";
@@ -79,7 +79,7 @@ const RoutingSystem: React.FC = () => {
           <Route path="/page/Tracking"                render={(props) => { setSelectedPage('Tracking'); return <Tracking {...props} />; }}                      exact={true} />
           <Route path="/page/HistoryList"             render={(props) => { setSelectedPage('HistoryList'); return <HistoryList />; }}                           exact={true} />
           <Route path="/page/Details/:id"             render={(props) => { setSelectedPage('Details'); return <Details {...props} />; }}                        exact={true} />
-          <Route path="/page/TeamDetails/:id?"        render={(props) => { setSelectedPage('TeamDetails'); return <TeamDetails {...props} />; }}                exact={true} />
+          <Route path="/page/TeamDetails/:id"        render={(props) => { setSelectedPage('TeamDetails'); return <TeamDetails {...props} />; }}                exact={true} />
           <Route path="/page/CompetitionDetails/:id"  render={(props) => { setSelectedPage('CompetitionDetails'); return <CompetitionDetails {...props} />; }}  exact={true} />
           <Route path="/page/CompetitionList"         render={(props) => { setSelectedPage('CompetitionList'); return <CompetitionList />; }}                   exact={true} />
           <Route path="/page/NewCompetition"          render={(props) => { setSelectedPage('NewCompetition'); return <NewCompetition />; }}                     exact={true} />

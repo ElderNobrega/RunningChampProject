@@ -4,7 +4,7 @@ import {  withIonLifeCycle, IonBackButton, IonButtons, IonContent, IonHeader, Io
 import React from 'react';
 import '../css/CompList.css';
 import {getCompetitions} from '../components/firebaseConfig'
-import { key } from 'ionicons/icons';
+//import { key } from 'ionicons/icons';
 
 class CompetitionListPage extends React.Component {
   state = {count: 0};
