@@ -52,8 +52,14 @@ class CompetitionListPage extends React.Component {
             </IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <h2>
+          <h2>
+              <span className="start-date">Start date: {comp.startDate}</span>
               <span className="avgKm">({comp.minRange}km - {comp.maxRange}km)</span>
+            </h2>
+          </IonCardContent>
+          <IonCardContent>
+            <h2>
+              <span className="end-date">End date: {comp.endDate}</span>
               <span className="entrants">{comp.entrants} entrants</span>
             </h2>
           </IonCardContent>
