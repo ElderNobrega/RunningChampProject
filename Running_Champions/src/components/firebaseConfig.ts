@@ -111,7 +111,8 @@ export async function passwordReset(email: string) {
     var email = email
 
     try {
-        return auth.sendPasswordResetEmail(email)
+        auth.sendPasswordResetEmail(email)
+        return true
     } catch (error) {
         console.log(error.message)
         toast(error.message)
