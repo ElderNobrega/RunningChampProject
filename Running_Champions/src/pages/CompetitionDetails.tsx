@@ -5,6 +5,22 @@ import '../css/CompDetail.css';
 import { RouteComponentProps } from 'react-router';
 import { getCompetition, getTeams, joinComp, checkCaptain} from '../components/firebaseConfig';
 
+async function joinCompetition() {
+  
+}
+
+const displayJoinComp = (isCap: boolean) => {
+  if (isCap) {
+    return (
+    <IonFab vertical="bottom" horizontal="end" slot="fixed">
+      <IonFabButton onClick={(e) => console.log('Join Competition')}>Join</IonFabButton>
+    </IonFab>
+    )
+  } else {
+    return ''
+  }
+}
+
 interface CompDetailProps extends RouteComponentProps<{
   id: string;
 }>{}
@@ -17,6 +33,7 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
   captain = {isCaptain: false}
 
   async ionViewWillEnter() {
+    this.captain.isCaptain = false
     console.log("This is ion view will enter")
     const comp = await getCompetition(this.props.match.params.id)
     const team = await getTeams(this.props.match.params.id)
@@ -31,7 +48,7 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
     console.log(this.teams)
     const isCap = await checkCaptain()
     if (isCap) {
-
+      this.captain.isCaptain = true
     }
     this.setState({isFetching: false})
   }
@@ -100,9 +117,7 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
             </div>
           </section>
         <IonList>{items}</IonList>
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-            <IonFabButton onClick={(e) => console.log('Join Competition')}>Join</IonFabButton>
-        </IonFab>
+        {displayJoinComp(this.captain.isCaptain)}
         </IonContent>
       </IonPage>
     )
