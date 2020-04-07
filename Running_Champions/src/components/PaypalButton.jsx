@@ -85,11 +85,6 @@ class PaypalButton extends React.Component {
 
         {showButtons && (
           <div>
-            <div>
-              <h2>Items: Competition</h2>
-              <h2>Total checkout Amount $10</h2>
-            </div>
-
             <PayPalButton
               createOrder={(data, actions) => this.createOrder(data, actions)}
               onApprove={(data, actions) => this.onApprove(data, actions)}

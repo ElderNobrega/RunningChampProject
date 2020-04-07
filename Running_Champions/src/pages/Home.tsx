@@ -33,7 +33,7 @@ const displayMembers = (members: any) => {
   return output;
 }
 
-const teamContent = (currentTeam: any, newTeam: string, isLoggedIn: boolean, setTeam: any, history: any) => {
+const teamContent = (currentTeam: any, newTeam: string, isLoggedIn: boolean, setTeam: any, history: any, isFetching: boolean) => {
   if (!isLoggedIn) {
     return (
       <p>
@@ -41,8 +41,15 @@ const teamContent = (currentTeam: any, newTeam: string, isLoggedIn: boolean, set
       </p>
     )
   }
+  else if (isFetching) {
+    return (
+      <p>
+        "Loading ..."
+      </p>
+    )
+
+  }
   else if (currentTeam.teamName) {
-    //TODO: Get Team Details to display
     return (
       <>
         <p>
@@ -63,14 +70,12 @@ const teamContent = (currentTeam: any, newTeam: string, isLoggedIn: boolean, set
           <IonInput type='text' onIonChange={(e: any) => setTeam(e.target.value)}></IonInput>
         </IonItem>
         <IonButton onClick={() => {
-          console.log(newTeam);
           if (newTeam === '') {
             toast('Team name cannot be empty');
           }
           else {
             createTeam(newTeam).then((res) => {
               if (res !== '') {
-                console.log(res);
                  history.replace("page/TeamDetails/" + res);
               }
             });
@@ -103,7 +108,6 @@ const HomePage: React.FC = () => {
     getCurrentTeam().then((team) => {
       if (team) {
         setTeam(team);
-        console.log(currentTeam);
       }
       setFetching(false);
     });
@@ -149,7 +153,7 @@ const HomePage: React.FC = () => {
             <IonCardTitle>Team</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            {teamContent(currentTeam, newTeam, userIsLoggedIn, setNewTeam, history)}
+            {teamContent(currentTeam, newTeam, userIsLoggedIn, setNewTeam, history, isFetching)}
           </IonCardContent>
         </IonCard>
 

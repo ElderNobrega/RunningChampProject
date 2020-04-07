@@ -291,26 +291,6 @@ export async function getTeams(compId: string) {
     return teams
 }
 
-export async function getTeam() {
-    let team: Array<any> = []
-    getCurrentUser().then((user: any) => {
-    if (user) {
-        try {
-            db.collection('Team').where("userId", "==", user.uid).get()
-            .then(function(querySnapshot) {
-                querySnapshot.docs.forEach(function(doc) {
-                    team.push(doc.data())
-                })
-            })
-        } catch (error) {
-            toast(error.message)
-        }
-    }
-    console.log(team)
-    return team
-    })
-}
-
 export async function trackRun(name: string, duration: number, distance: number, date: string) {
     getCurrentUser().then((user: any) => {
         //check if the user is logged and get the id
@@ -369,4 +349,9 @@ export async function getCurrentTeam() {
   return undefined;
 }
 
+export async function getTeam(teamId: string) {
+    const teamRef = db.collection('Team').doc(teamId);
+    const team = await (await teamRef.get()).data();
+    return team;
+}
 
