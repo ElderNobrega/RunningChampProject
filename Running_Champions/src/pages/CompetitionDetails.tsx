@@ -1,9 +1,9 @@
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard,
-        IonCardTitle, IonCardHeader, IonList, withIonLifeCycle} from '@ionic/react';
+        IonCardTitle, IonCardHeader, IonList, withIonLifeCycle, IonFab, IonFabButton} from '@ionic/react';
 import React from 'react';
 import '../css/CompDetail.css';
 import { RouteComponentProps } from 'react-router';
-import { getCompetition, getTeams } from '../components/firebaseConfig';
+import { getCompetition, getTeams, joinComp } from '../components/firebaseConfig';
 
 interface CompDetailProps extends RouteComponentProps<{
   id: string;
@@ -14,6 +14,7 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
   count = {num: 0}
   competition: Array<any> = []
   teams: Array<any> = []
+  captain = {isCaptain: false}
 
   async ionViewWillEnter() {
     console.log("This is ion view will enter")
@@ -25,10 +26,12 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
         this.teams.push(element)
         this.setState({count: this.count.num + 1})
       })
-      this.setState({isFetching: false})
     }
     console.log(this.competition)
     console.log(this.teams)
+    const isCap = await joinComp(this.props.match.params.id)
+    if (isCap)
+    this.setState({isFetching: false})
   }
 
   ionViewWillLeave() {
@@ -95,39 +98,13 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
             </div>
           </section>
         <IonList>{items}</IonList>
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+            <IonFabButton onClick={(e) => console.log('Join Competition')}>Join</IonFabButton>
+        </IonFab>
         </IonContent>
       </IonPage>
     )
   }
 }
 
-
-
-/* const ListItems = () => {
-  const teams = [
-    {tName: "Team First", distance: 30.0, place: "1st"},
-    {tName: "Team Win", distance: 25.0, place: "2nd"},
-    {tName: "Team Good", distance: 20.4, place: "3rd"},
-    {tName: "Team Trying", distance: 17.0, place: "4th"},
-    {tName: "Team Never Give Up", distance: 6.3, place: "5th"}
-  ];
-
-  let count = 0;
-  const items = teams.map(team => {
-    count += 1;
-    return (
-      <IonCard id="list" key={count} button routerLink="/page/TeamDetails" onClick={(e) => console.log("teams page")}>
-        <IonCardHeader>
-          <IonCardTitle>
-            <span className="comp-item-first">{team.tName}</span>
-            <span className="comp-item-list">{team.distance } km</span>
-            <span className="comp-item-list">{team.place}</span>
-          </IonCardTitle>
-        </IonCardHeader>
-      </IonCard>
-    )
-  })
-  return <IonList>{items}</IonList>;
-}
- */
 export default withIonLifeCycle(CompDetailsPage);
