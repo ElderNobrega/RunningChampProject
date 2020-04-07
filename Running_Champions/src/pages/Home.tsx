@@ -37,14 +37,14 @@ const teamContent = (currentTeam: any, newTeam: string, isLoggedIn: boolean, set
   if (!isLoggedIn) {
     return (
       <p>
-        "Please log in to use this feature"
+        Please log in to use this feature
       </p>
     )
   }
   else if (isFetching) {
     return (
       <p>
-        "Loading ..."
+        Loading ...
       </p>
     )
 
