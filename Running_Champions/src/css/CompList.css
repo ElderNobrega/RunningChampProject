@@ -1,3 +1,4 @@
- #competition-list .fee, #competition-list .entrants, #competition-list .avgKm {
+
+#competition-list .fee, #competition-list .entrants, #competition-list .avgKm {
     float: right;
 }

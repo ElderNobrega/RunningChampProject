@@ -18,16 +18,6 @@ const SettingsPage: React.FC = () => {
           <IonCardContent>
             <IonList>
               <IonItem>
-                <IonLabel><div>Account Settings???</div></IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel><div>Profile Settings???</div></IonLabel>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Notifications</IonLabel>
-                <IonToggle value="notifications" onChange={() => {}} />
-              </IonItem>
-              <IonItem>
                 <IonLabel>Dark Mode</IonLabel>
                 <IonToggle value="darkMode" onChange={() => {}} />
               </IonItem>

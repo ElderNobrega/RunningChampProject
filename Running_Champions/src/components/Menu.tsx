@@ -14,7 +14,7 @@ import {
 
 import React, { useState } from 'react';
 import { RouteComponentProps, withRouter, useHistory } from 'react-router-dom';
-import { home, mail, logIn, logOut, settings, people } from 'ionicons/icons';
+import { home, mail, logIn, logOut, settings, people, statsChart } from 'ionicons/icons';
 import {toast} from '../helperFunctions/toast';
 import {logOutUser} from '../components/firebaseConfig';
 import '../css/Menu.css'; 
@@ -32,11 +32,12 @@ interface AppPage {
 }
 
 const appPages: AppPage[] = [
-  {    title: 'Home',        url: '/page/Home',        icon: home     },
-  {    title: 'Login',       url: '/page/Login',       icon: logIn    },
-  {    title: 'Messages',    url: '/page/Messages',    icon: mail     },
-  {    title: 'Settings',    url: '/page/Settings',    icon: settings },
-  {    title: 'About',       url: '/page/About',       icon: people   }
+  {    title: 'Home',        url: '/page/Home',        icon: home       },
+  {    title: 'Login',       url: '/page/Login',       icon: logIn      },
+  {    title: 'Messages',    url: '/page/Messages',    icon: mail       },
+  {    title: 'Statistics',    url: '/page/Statistics',icon: statsChart },
+  {    title: 'Settings',    url: '/page/Settings',    icon: settings   },
+  {    title: 'About',       url: '/page/About',       icon: people     }
 ];
         
 const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {

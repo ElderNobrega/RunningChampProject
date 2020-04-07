@@ -81,7 +81,7 @@ class DetailsPage extends React.Component<DetailPageProps> {
               </div>
             </section>
             
-            <SimpleMap />
+          <SimpleMap lat={this.run.positions.length > 0 ? this.run.positions[0].lat : 0} long={this.run.positions.length > 0 ? this.run.positions[0].long : 0} />
         </IonContent>
       </IonPage>
     );
