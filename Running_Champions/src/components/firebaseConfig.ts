@@ -177,19 +177,16 @@ export async function getCompetitions() {
 
 export async function checkCaptain() {
     let check: boolean = false
-    await getCurrentUser().then((user: any) => {
+    var user: any = await getCurrentUser()
         if (user) {
             try {
-                db.collection("Team").where("captain", "==", user.uid).get()
-                .then(function(querySnapshot) {
-                    querySnapshot.forEach(function(doc) {
-                        if (doc.exists && doc.data().competitionId == '') {
-                            check = true
-                        } else {
-                            check = false
-                        }
-                    })
+                const  querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection("Team").where("captain", "==", user.uid).get()
+                querySnapshot.docs.forEach(function(doc) {
+                    if (doc.data().competitionId == '') {
+                        check = true
+                    } 
                 })
+                console.log(check)
             } catch (error) {
                 console.log(error)
                 toast(error.message)
@@ -197,7 +194,6 @@ export async function checkCaptain() {
         } else {
             check = false
         }
-    })
     return check
 }
 

@@ -76,7 +76,7 @@ const teamContent = (currentTeam: any, newTeam: string, isLoggedIn: boolean, set
           else {
             createTeam(newTeam).then((res) => {
               if (res !== '') {
-                 history.replace("page/TeamDetails/" + res);
+                 history.replace("/page/TeamDetails/" + res);
               }
             });
           }
