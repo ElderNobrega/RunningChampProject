@@ -3,7 +3,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPag
 import React from 'react';
 import '../css/CompDetail.css';
 import { RouteComponentProps } from 'react-router';
-import { getCompetition, getTeams, joinComp } from '../components/firebaseConfig';
+import { getCompetition, getTeams, joinComp, checkCaptain} from '../components/firebaseConfig';
 
 interface CompDetailProps extends RouteComponentProps<{
   id: string;
@@ -29,8 +29,10 @@ class CompDetailsPage extends React.Component<CompDetailProps> {
     }
     console.log(this.competition)
     console.log(this.teams)
-    const isCap = await joinComp(this.props.match.params.id)
-    if (isCap)
+    const isCap = await checkCaptain()
+    if (isCap) {
+
+    }
     this.setState({isFetching: false})
   }
 

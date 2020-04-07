@@ -183,7 +183,7 @@ export async function checkCaptain() {
                 db.collection("Team").where("captain", "==", user.uid).get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
-                        if (doc.exists && doc.data().onComp === false) {
+                        if (doc.exists && doc.data().competitionId == '') {
                             check = true
                         } else {
                             check = false
@@ -236,7 +236,7 @@ export async function checkDistPay(userID: string, minKm: number, maxKm: number)
 export async function joinComp(compID: string) {
     let competition: Array<any> = []
     let teamData: Array<any> = []
-    await getCurrentUser().then((user: any) => {
+    const user: any = await getCurrentUser()
         if (user && compID) {
             try {
                 const res = db.collection("Comp_Team/").doc(user.uid)
@@ -272,7 +272,7 @@ export async function joinComp(compID: string) {
 
             }
         }
-    })
+
 }
 
 export async function createTeam(name: string) {
