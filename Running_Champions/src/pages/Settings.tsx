@@ -1,5 +1,7 @@
 import { IonCheckbox, IonList, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonCard, IonCardContent, IonToggle, IonLabel, IonItem } from '@ionic/react';
 import React from 'react';
+import { getEnabledCategories } from 'trace_events';
+import { enableDarkTheme } from "../helperFunctions/utils"
 
 const SettingsPage: React.FC = () => {
   return (
@@ -27,10 +29,12 @@ const SettingsPage: React.FC = () => {
                 <IonLabel>Notifications</IonLabel>
                 <IonToggle value="notifications" onChange={() => {}} />
               </IonItem>
+              
               <IonItem>
                 <IonLabel>Dark Mode</IonLabel>
-                <IonToggle value="darkMode" onChange={() => {}} />
+                <IonToggle value="darkMode" onChange={() => getEnabledCategories()} />
               </IonItem>
+
               <IonItem>
                 <IonLabel>Distance Unit in km</IonLabel>
                 <IonCheckbox checked={true} slot="end"/>

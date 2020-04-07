@@ -66,9 +66,23 @@ import { app } from 'firebase';
 // }
 // paypal end --!
 
+// DARK MODE in the eg this is in app-root.tsx file
+import { enableDarkTheme } from "../src/helperFunctions/utils";
+@Component({
+  tag: "app-root",
+  styleUrl: "app-roots.css"
+})
+componentWillLoad() {
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark");
+  enableDarkTheme(prefersDark.matches);
+  prefersDark.addListener(MediaQuery => enableDarkTheme(MediaQuery.matches));
+}
+
 const RoutingSystem: React.FC = () => {
  
   const [selectedPage, setSelectedPage] = useState('');  
+
+  
 
   return (
     <IonReactRouter>

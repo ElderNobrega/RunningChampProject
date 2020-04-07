@@ -12,6 +12,7 @@
     "@ionic/react": "^5.0.0",
     "@ionic/react-router": "^5.0.0",
     "@jeepq/capacitor": "0.0.3-1",
+    "@react-google-maps/api": "^1.8.6",
     "@react-native-firebase/firestore": "^6.3.3",
     "@types/google-map-react": "^1.1.5",
     "@types/jest": "^24.0.18",
