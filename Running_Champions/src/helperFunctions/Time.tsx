@@ -42,6 +42,6 @@ export function getFullDate() {
         period = 'pm';
     }
     
-    let date = `${month} ${day}, ${year} ${hour}:${minute}${period}`;
+    let date = `${month} ${day}, ${year} ${hour}:${minute.toString().padStart(2, '0')}${period}`;
     return date;
 }

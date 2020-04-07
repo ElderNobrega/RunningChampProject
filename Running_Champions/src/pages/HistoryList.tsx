@@ -63,7 +63,7 @@ class HistoryListPage extends React.Component {
             <IonCardContent>
                 <h2>
                     <span className="date">{ run.date }</span>
-                    <span className="distance">{ run.distance } km</span>
+                    <span className="distance">{ run.distance } m</span>
                 </h2>
             </IonCardContent>
         </IonCard>
