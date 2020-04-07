@@ -182,7 +182,7 @@ export async function checkCaptain() {
                 db.collection("Team").where("captain", "==", user.uid).get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
-                        if (doc.exists && doc.data().onComp == false) {
+                        if (doc.exists && doc.data().onComp === false) {
                             check = true
                         } else {
                             check = false
@@ -249,7 +249,7 @@ export async function joinComp(compID: string) {
                 }
                 })
                 checkDistPay(user.uid, competition[0].minRange, competition[0].maxRange).then((check) => {
-                    if (check == "") {
+                    if (check === "") {
                         team.get().then(function(querySnapshot)  {
                             querySnapshot.docs.forEach(function(doc) {
                                 teamData.push(doc.data()) 
@@ -275,30 +275,30 @@ export async function joinComp(compID: string) {
 }
 
 export async function createTeam(name: string) {
-    var check = false
+    var check = ''
     var user: any = await getCurrentUser()
     if (user) {
         try {
             const docRef = db.collection("User").doc(user.uid)
             var doc: any = await (await docRef.get()).data()
-                const username = user.uid
-                const res = db.collection("Team")
-                var teamRef = await res.add({
-                    teamName: name,
-                    captain: user.uid,
-                    member: {[username]: {
-                                userId: user.uid,
-                                distance: 0,
-                                payment: false,
-                                uName: doc.userName
-                            }},
-                    teamAvgDistance: doc.distance / doc.runs,
-                    competitionId: ''
-                })
-                docRef.update({
-                    currentTeam: teamRef.id
-                })
-            check = true
+            const username = user.uid
+            const res = db.collection("Team")
+            var teamRef = await res.add({
+                teamName: name,
+                captain: user.uid,
+                member: {[username]: {
+                            userId: user.uid,
+                            distance: 0,
+                            payment: false,
+                            uName: doc.userName
+                        }},
+                teamAvgDistance: doc.distance / doc.runs,
+                competitionId: ''
+            })
+            docRef.update({
+                currentTeam: teamRef.id
+            })
+            check = teamRef.id
         } catch (error) {
             toast(error.message)
             console.log(error)
@@ -316,26 +316,6 @@ export async function getTeams(compId: string) {
         teams.push(team)
     })
     return teams
-}
-
-export async function getTeam() {
-    let team: Array<any> = []
-    getCurrentUser().then((user: any) => {
-    if (user) {
-        try {
-            db.collection('Team').where("userId", "==", user.uid).get()
-            .then(function(querySnapshot) {
-                querySnapshot.docs.forEach(function(doc) {
-                    team.push(doc.data())
-                })
-            })
-        } catch (error) {
-            toast(error.message)
-        }
-    }
-    console.log(team)
-    return team
-    })
 }
 
 export async function trackRun(name: string, duration: number, distance: number, date: string) {
@@ -375,10 +355,97 @@ export async function getRuns() {
                 return false
             }
         }
-    })
-    
+    })    
     
 }
 
+export async function getCurrentTeam() {
+  const user: any = await getCurrentUser();
+  if (user) {
+    const docRef = db.collection("User").doc(user.uid);
+    const doc: any = await (await docRef.get()).data();
+    if (doc.currentTeam !== '') {
+      const teamRef = db.collection('Team').doc(doc.currentTeam);
+      const team = await (await teamRef.get()).data();
+      if(team) {
+          team["id"] = doc.currentTeam;
+      }
+      return team;
+    }
+  }
+  return undefined;
+}
 
+export async function getTeam(teamId: string) {
+    const teamRef = db.collection('Team').doc(teamId);
+    const team = await (await teamRef.get()).data();
+    if(team) {
+        team["id"] = teamRef.id;
+    }
+  return team;
+}
 
+export async function createInvite(email: string, team: string, teamName: string) {
+    var found = 0;
+    var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection('User').where("email", "==", email).get();
+    const res = await db.collection("Invite");
+    querySnapshot.docs.forEach((user) => {
+        const userData = user.data();
+        if (userData.currentTeam === '') {
+            found = 2;
+            res.add({
+                userId: user.id,
+                teamId: team,
+                teamName: teamName
+            });
+        }
+        else {
+            found = 1;
+        }
+    })
+    return found;
+}
+
+export async function getInvites() {
+    const user: any = await getCurrentUser();
+    const invites: Array<any> = []
+    var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection('Invite').where("userId", "==", user.uid).get();
+    querySnapshot.docs.forEach(function(doc) {
+        const invite = doc.data();
+        invites.push(invite);
+    })
+    return invites;
+}
+
+export async function joinTeam(userId: string, teamId: string) {
+    var success = false;
+    const docRef = db.collection("User").doc(userId)
+    const doc = await (await docRef.get()).data();
+
+    const teamRef = db.collection("Team").doc(teamId)
+    const team = await (await teamRef.get()).data();
+
+    if(team && doc && doc.currentTeam === '') {
+        var members = team.member;
+        members[userId] = {
+            userId: userId,
+            distance: 0,
+            payment: false,
+            uName: doc.userName
+        }
+
+        docRef.update({
+            currentTeam: teamId
+        })
+        teamRef.update({
+            member: members
+        })
+
+        var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection("Invite").where("userId", "==", userId).where("teamId", "==", teamId).get();
+        querySnapshot.docs.forEach(function(doc) {
+            doc.ref.delete();
+        })
+        success = true;
+    }
+    return success;
+}

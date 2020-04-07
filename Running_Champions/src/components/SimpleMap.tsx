@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import GoogleMapReact from 'google-map-react';
 
 const K_WIDTH = 20;
@@ -24,33 +24,32 @@ const greatPlaceStyle = {
 };
 
 // @ts-ignore
-const AnyReactComponent = (props: { lat: number, lng: number, text:string }) => <div style={greatPlaceStyle}>{props.text}</div>;
+const CurrentPosition = (props: { lat: number, lng: number, text:string }) => <div style={greatPlaceStyle}>{props.text}</div>;
 
-class SimpleMap extends Component {
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
-  };
+interface MapProps {
+  lat: number;
+  long: number;
+}
+
+class SimpleMap extends React.Component<MapProps> {
 
   render() {
+    console.log(this.props.lat);
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '65vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBEBKFCaUXt3sUYcd91VauZjaEoi9uiiGA" }}
-          defaultCenter={{
-            lat: 43.6756834,
-            lng: -79.4102601
+          center={{
+            lat: this.props.lat, //43.6756834, 
+            lng: this.props.long // -79.4102601
           }}
           defaultZoom={19}
         >
         
-        <AnyReactComponent
-            lat={43.6756834}
-            lng={-79.4102601}
+        <CurrentPosition
+            lat={this.props.lat}
+            lng={this.props.long}
             text=""
         />
 
