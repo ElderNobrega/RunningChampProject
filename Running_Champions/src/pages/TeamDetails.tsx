@@ -58,8 +58,11 @@ const displayInvite = (display: boolean, parent: any, team: string) => {
             }
             else {
               createInvite(parent.state.email, parent.team.id, parent.team.teamName).then((res) => {
-                if (res) {
+                if (res === 2) {
                   toast("Invite Sent");
+                }
+                else if (res === 1) {
+                  toast("User already on a team");
                 }
                 else {
                   toast("No user with this email found");

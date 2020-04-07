@@ -359,16 +359,22 @@ export async function getTeam(teamId: string) {
 }
 
 export async function createInvite(email: string, team: string, teamName: string) {
-    var found = false;
+    var found = 0;
     var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection('User').where("email", "==", email).get();
     const res = await db.collection("Invite");
     querySnapshot.docs.forEach((user) => {
-        found = true;
-        res.add({
-            userId: user.id,
-            teamId: team,
-            teamName: teamName
-        })
+        const userData = user.data();
+        if (userData.currentTeam === '') {
+            found = 2;
+            res.add({
+                userId: user.id,
+                teamId: team,
+                teamName: teamName
+            });
+        }
+        else {
+            found = 1;
+        }
     })
     return found;
 }

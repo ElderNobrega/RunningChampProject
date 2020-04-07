@@ -137,17 +137,6 @@ const HomePage: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <IonCard className="home-card" button routerLink="/page/Statistics" onClick={(e) => console.log('statistics page')}>
-          <IonCardHeader>
-            <IonCardTitle>Statistics</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <p>
-              Statistics Content
-            </p>
-          </IonCardContent>
-        </IonCard>
-
         <IonCard className="home-card" button routerLink={currentTeam.id ? "/page/TeamDetails/" + currentTeam.id : undefined} onClick={(e) => console.log('team page')} disabled={!userIsLoggedIn}>
           <IonCardHeader>
             <IonCardTitle>Team</IonCardTitle>
