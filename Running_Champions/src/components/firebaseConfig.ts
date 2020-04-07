@@ -352,6 +352,67 @@ export async function getCurrentTeam() {
 export async function getTeam(teamId: string) {
     const teamRef = db.collection('Team').doc(teamId);
     const team = await (await teamRef.get()).data();
-    return team;
+    if(team) {
+        team["id"] = teamRef.id;
+    }
+  return team;
 }
 
+export async function createInvite(email: string, team: string, teamName: string) {
+    var found = false;
+    var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection('User').where("email", "==", email).get();
+    const res = await db.collection("Invite");
+    querySnapshot.docs.forEach((user) => {
+        found = true;
+        res.add({
+            userId: user.id,
+            teamId: team,
+            teamName: teamName
+        })
+    })
+    return found;
+}
+
+export async function getInvites() {
+    const user: any = await getCurrentUser();
+    const invites: Array<any> = []
+    var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection('Invite').where("userId", "==", user.uid).get();
+    querySnapshot.docs.forEach(function(doc) {
+        const invite = doc.data();
+        invites.push(invite);
+    })
+    return invites;
+}
+
+export async function joinTeam(userId: string, teamId: string) {
+    var success = false;
+    const docRef = db.collection("User").doc(userId)
+    const doc = await (await docRef.get()).data();
+
+    const teamRef = db.collection("Team").doc(teamId)
+    const team = await (await teamRef.get()).data();
+
+    if(team && doc && doc.currentTeam === '') {
+        var members = team.member;
+        members[userId] = {
+            userId: userId,
+            distance: 0,
+            payment: false,
+            uName: doc.userName
+        }
+
+        docRef.update({
+            currentTeam: teamId
+        })
+        teamRef.update({
+            member: members
+        })
+
+        var querySnapshot: fb.firestore.QuerySnapshot<fb.firestore.DocumentData> = await db.collection("Invite").where("userId", "==", userId).where("teamId", "==", teamId).get();
+        querySnapshot.docs.forEach(function(doc) {
+            doc.ref.delete();
+        })
+        success = true;
+    }
+    return success;
+}

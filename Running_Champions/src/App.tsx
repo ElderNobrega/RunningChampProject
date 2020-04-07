@@ -86,7 +86,7 @@ const RoutingSystem: React.FC = () => {
           <Route path="/page/Register"                render={(props) => { setSelectedPage('Register'); return <Register />; }}                                 exact={true} />
           <Route path="/page/Login"                   render={(props) => { setSelectedPage('Login'); return <Login />; }}                                       exact={true} />
           <Route path="/page/ForgotPassword"          render={(props) => { setSelectedPage('ForgotPassword'); return <ForgotPassword />; }}                     exact={true} />
-          <Route path="/page/Messages"                render={(props) => { setSelectedPage('Messages'); return <Messages />; }}                                 exact={true} />
+          <Route path="/page/Messages"                render={(props) => { setSelectedPage('Messages'); return <Messages {...props} />; }}                                 exact={true} />
           <Route path="/page/Statistics"              render={(props) => { setSelectedPage('Statistics'); return <Statistics />; }}                             exact={true} />
           <Route path="/page/Settings"                render={(props) => { setSelectedPage('Settings'); return <Settings />; }}                                 exact={true} />
           <Route path="/page/About"                   render={(props) => { setSelectedPage('About'); return <About />; }}                                       exact={true} />

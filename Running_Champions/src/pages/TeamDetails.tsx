@@ -3,9 +3,10 @@ import { IonButton } from '@ionic/react';
 import PaypalButton from "../components/PaypalButton"
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { getTeam, getCompetition, getCurrentUser } from '../components/firebaseConfig';
+import { getTeam, getCompetition, getCurrentUser, createInvite } from '../components/firebaseConfig';
 import { toast } from '../helperFunctions/toast';
 
+// TEMPORARY REMOVE LATER
 const comp = {compName: "Firestorm Competition", fee: 25, 
               distance: "12km", position:"3rd", entrants: 41, 
               startDate: "02/31/2020", endDate: "03/31/2020"}
@@ -22,6 +23,7 @@ const displayMembers = (captain: string, members: any) => {
 
 const displayCompetition = (competition: any) => {
   if (competition.name !== undefined) {
+    console.log(competition);
     return(
       <IonCard>
       <IonCardHeader>
@@ -41,8 +43,7 @@ const displayCompetition = (competition: any) => {
   }
 }
 
-
-const displayInvite = (display: boolean, parent: any) => {
+const displayInvite = (display: boolean, parent: any, team: string) => {
   if (display) {
     return(
       <IonCard>
@@ -52,16 +53,18 @@ const displayInvite = (display: boolean, parent: any) => {
             <IonInput type='email' onIonChange={(e: any) => parent.setState({isFetching: parent.state.isFetching, email: e.target.value})}></IonInput>
           </IonItem>
           <IonButton onClick={() => {
-            console.log(parent.state.email);
             if (parent.state.email === '') {
               toast('Email Address cannot be empty');
             }
             else {
-              /*createInvite(state.email).then((res) => {
-                if (res !== '') {
+              createInvite(parent.state.email, parent.team.id, parent.team.teamName).then((res) => {
+                if (res) {
                   toast("Invite Sent");
                 }
-              });*/
+                else {
+                  toast("No user with this email found");
+                }
+              });
             }
             }}>
             Invite New Member
@@ -123,6 +126,9 @@ class TeamDetailsPage extends React.Component<TeamDetailProps> {
 
         <IonCard>
           <IonCardContent>
+            <IonCardHeader>
+              <IonCardTitle>{this.team.teamName !== undefined ? this.team.teamName : ''}</IonCardTitle>
+            </IonCardHeader>
             <IonGrid> 
               <IonRow>
                 <IonCol><IonHeader>MEMBERS</IonHeader></IonCol>  <IonCol><IonHeader>DISTANCE</IonHeader></IonCol>
@@ -131,7 +137,7 @@ class TeamDetailsPage extends React.Component<TeamDetailProps> {
             </IonGrid>
           </IonCardContent>
         </IonCard>
-        {displayInvite(this.currentUser === this.team.captain, this)}
+        {displayInvite(this.currentUser === this.team.captain, this, this.team.id)}
         <PaypalButton />
       </IonContent>
     </IonPage>
