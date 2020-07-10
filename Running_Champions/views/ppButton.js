@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import scriptLoader from "react-async-script-loader";
-import Spinner from "./Spinner";
+import Spinner from "./Spinner"
 
 const CLIENT = {
   sandbox:"AW_t36R6h5RUa1-2rZZA3IS3FwrhKLVsUyV8bOA3FelHQSmQEX4voN-6j-aJ84PrAkp70zx8dNaXmexv",
